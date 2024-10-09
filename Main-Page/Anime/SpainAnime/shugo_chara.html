@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shugo chara - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://animemovil2.com/media/portadas/888.webp');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://animemovil2.com/media/portadas/888.webp');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+            top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://animemovil2.com/media/portadas/888.webp');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">shugo chara - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select id="episode-select" onchange="changerEpisode()">
+                        <option value="none">-- Choose an Episode --</option>
+                        <!-- Les options pour les épisodes seront ajoutées ici via JavaScript -->
+                    </select>
+                    <select id="server-select" onchange="changerServeur()">
+                        <option value="none">-- Choose a Server --</option>
+                        <!-- Les options pour les serveurs seront ajoutées ici via JavaScript -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "shugo chara"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            var episodes = {
+                //Ajoutez dautres épisodes et serveurs ici
+        "Episode 1": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/1l96-qk1l95", server: "Fembed" },
+            { url: "https://mega.nz/embed#!KUY1hQhJ!s0MtnQAOAnyJnYW6di2LHERBxoqJXZIcJyXxkjkx-Rk", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/282857179824", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/hpw0g8XppaeK", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=258205243259233221204276241237246246194271217261258", server: "HQQ" }
+        ],
+        "Episode 2": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/7qo7-lknwvg", server: "Fembed" },
+            { url: "https://mega.nz/embed#!LcI1TSaY!WVLxwPz7A79K7FAUhX_p7iBKNBsnZZQC2vx75LWAnWc", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/279902161616", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/22iK6rFt8l6I", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=268262223243277228261263270267242263194271217261258", server: "HQQ" }
+        ],
+        "Episode 3": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/mz9k6wp31vq", server: "Fembed" },
+            { url: "https://mega.nz/embed#!icR1UQST!sKvphGmLlrYF4dK3CnNZV5IdS9L7jCHce30MZzZ6IxM", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/277264730735", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/53mK3P6l7fy3", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=209227209234260232254230227267272277194271217261258", server: "HQQ" }
+        ],
+        "Episode 4": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/8gvzxd16yod", server: "Fembed" },
+            { url: "https://mega.nz/embed#!3JJ3TaoQ!XOK9SJbdNcqEi0bDzjOgTQb30XUnuaLJtEJX33wZztE", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/276131482225", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/v6I48TVh3R2y", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=255226235222244272274233226263230267194271217261258", server: "HQQ" }
+        ],
+        "Episode 5": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/809eez1579j", server: "Fembed" },
+            { url: "https://mega.nz/embed#!CMI1ia4K!5TSuNK_5uLHB-Yc51bw9lsx3tDwwsjlfnIYjd07-gWg", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/283190168176", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/4861o41rcG7w", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=277226246242235270208204207258265229194271217261258", server: "HQQ" }
+        ],
+        "Episode 6": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/6m92-dnpdvr", server: "Fembed" },
+            { url: "https://mega.nz/embed#!yJIxxC6S!oXUJ7wUPyTCUfVF51aOOBS8qxZo2nFzIsvXj6r-RdRE", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/257847528026", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/Rb5M84vSPANa", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=VmRRYTE1Qk15QmU1TjhmMU1tSjU0QT09", server: "HQQ" }
+        ],
+        "Episode 7": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/5jv4-1ekx90", server: "Fembed" },
+            { url: "https://mega.nz/embed#!WdA11YYR!-Ksqon6cDlXd_crOWtAYEvDdi8zI2VjUfEI2XKUPJaA", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/276131678833", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/aGfIt2ip1526", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=209207260236259263266265256221229246194271217261258", server: "HQQ" }
+        ],
+        "Episode 8": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/1lv6-qkllv5", server: "Fembed" },
+            { url: "https://mega.nz/embed#!TcIBFYxb!BUD8DT3ZX99GLvFipqQW9xTMrkR1u0SrbqlH0a4f3QQ", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/279902423760", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/uMFXCrN22OXY", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=L2svV0pGemUzTDAwRkc5NzZzdmFpUT09", server: "HQQ" }
+        ],
+        "Episode 9": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/1xvq1zd7x94", server: "Fembed" },
+            { url: "https://mega.nz/embed#!HRYHEYIQ!VHBMAcOHM0dpFWk-n53i3sZGDq98X-UG2bxLm8LRchk", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/278242396755", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/oTpqbhaXY0d8", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=270235241232266269208228274205231207194271217261258", server: "HQQ" }
+        ],
+        "Episode 10": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/yx93-rl1q9l", server: "Fembed" },
+            { url: "https://mega.nz/embed#!PUYDHS7B!d8T7N4kQtDhx8qm6nn0ALLSAbsXT55M_qGXX6CKoANo", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/282857376432", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/8umuXx8h4B5Y", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=242268241241258268229227232265205221194271217261258", server: "HQQ" }
+        ],
+        "Episode 11": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/5jo4-1enxv0", server: "Fembed" },
+            { url: "https://mega.nz/embed#!ONZh2K4a!ekDTagvyDJF-Et0aOe3pAU77BvmU1P0MnIgrK14wyZU", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/271194852075", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/USw2u3CCr6Nm", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=273276222246272239224270273228207211194271217261258", server: "HQQ" }
+        ],
+        "Episode 12": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/dw9rkq3npog", server: "Fembed" },
+            { url: "https://mega.nz/embed#!qcAlQIoa!Dms37-dmIpDO9r_WO7-bU_WPRhuR8dwWjibU-6MXeNI", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/279902620368", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/46i6C3x005iw", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=260241267237207224228229230275261240194271217261258", server: "HQQ" }
+        ],
+        "Episode 13": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/8xopp17nqo7", server: "Fembed" },
+            { url: "https://mega.nz/embed#!7MBBES5I!VHRkwNkJxiAi0ReRmcTbuKyQ0R14yZANxhzSbCdGi_Q", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/273990552149", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/V7avdfMn72nw", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=205237223226213231204221227221232278194271217261258", server: "HQQ" }
+        ],
+        "Episode 14": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/1xoq1zdnxv4", server: "Fembed" },
+            { url: "https://mega.nz/embed#!TYZnVK5A!cwprQ4fDToS0sFe5qvf_8iMbT3zvnbzC0GmyX4hsFXM", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/255072995900", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/6wr1Owys52V2", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=225238240238204255228275265234267221194271217261258", server: "HQQ" }
+        ],
+        "Episode 15": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/80oeez147oj", server: "Fembed" },
+            { url: "https://mega.nz/embed#!CAJxmQTT!3Lh8r_yG8XT75UvNwDjq3zPAR3Ayl0Cvjp8UuKtNcmg", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/257847790170", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/kvKtkyRC7S6Q", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=TWVqTXJGajN6by90QTIwRHpETlZkUT09", server: "HQQ" }
+        ],
+        "Episode 16": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/40oxe3nxyv8", server: "Fembed" },
+            { url: "https://mega.nz/embed#!nQZhzQ7Q!QfVjXfqOcZSNFRnCQb3sVzIxNDLHTCe56CdTx723PEo", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/275857082952", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/7XCgh4de2xsr", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=STNJamY5RnhLTkZEa3dNU0I0YXNqZz09", server: "HQQ" }
+        ],
+        "Episode 17": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/zyvn0d428o1", server: "Fembed" },
+            { url: "https://mega.nz/embed#!iMAD0AzC!lJq5mnHfQZ1wUcg-J8ILEWMTyGiw6HFwegw_d01_OUc", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/271194917611", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/bGbeUdHnE40t", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=226228237204212261209253271227211237194271217261258", server: "HQQ" }
+        ],
+        "Episode 18": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/4d9j4nk3y91", server: "Fembed" },
+            { url: "https://mega.nz/embed#!3UJVyS6A!4T_R60li3s2myFuTA97XfRUmkxM4nJxvTkqNoABdDZA", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/275733875278", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/RL0kJ0f03XNh", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=232261270236206233255241273261243265194271217261258", server: "HQQ" }
+        ],
+        "Episode 19": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/6mo2-dn2d9r", server: "Fembed" },
+            { url: "https://mega.nz/embed#!7BJXFKpL!FYX7pks-Bk1uAi8c018S_1mXbD-C1DJ9bvruD1QWzsk", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/273990617685", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/g03gmPAwH8c8", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=TVkxQmNiaEJ5bTFVVDQvays5OFRkZz09", server: "HQQ" }
+        ],
+        "Episode 20": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/5jo4-1eqxv0", server: "Fembed" },
+            { url: "https://mega.nz/embed#!jURHQKoR!0BT4XJvDJ6CSlEQrwpH3GTUlDqabsSTnokhl2-gEnPI", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/277264992879", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/14GwmqHOuycx", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=eC9uK2xNa2hxellueTJIYUF1WXpjQT09", server: "HQQ" }
+        ],
+        "Episode 21": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/8godl1yppvy", server: "Fembed" },
+            { url: "https://mega.nz/embed#!eRQVCShT!awRZVU5ok-v4IAsO8FS71t82_Iy0GFYjW64AngPc9w8", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/277265058415", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/Ga0O77MKmB4N", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=263242238222213224222233254206244209194271217261258", server: "HQQ" }
+        ],
+        "Episode 22": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/8g9zxd1wyvd", server: "Fembed" },
+            { url: "https://mega.nz/embed#!GERzCIiZ!r52RZWSKJ16cvAAF-FtrzVlkEadEe0LB6PfMSA2VxLk", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/283151698513", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/iuuBK34ouX3p", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=RWJwSUNZSm0wdkRZVVRNc0dxNmYxZz09", server: "HQQ" }
+        ],
+        "Episode 23": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/2w9md63wl96", server: "Fembed" },
+            { url: "https://mega.nz/embed#!DdRVDIQJ!hiZLMocy5c8Hk5fJ5Ncq3MSDsEj-Tb3mLUr7BzDqSp4", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/277666138798", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/G6fJJk8o50YV", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=VytVQ2sxc09JOW81MDByWEdnM0VxUT09", server: "HQQ" }
+        ],
+        "Episode 24": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/pm95-zle8vl", server: "Fembed" },
+            { url: "https://mega.nz/embed#!KZQj1SzD!qLWY0cgl1Edgt_Rng3o9WY95Q69V47rDm2MJS5Jtsac", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/271483537942", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/4WA5jgw06i66", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=273274207242241221263209265209225237194271217261258", server: "HQQ" }
+        ],
+        "Episode 25": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/40oxe3nryv8", server: "Fembed" },
+            { url: "https://mega.nz/embed#!HdZ3AKpS!plIGXC5O0x1obgZE6T_bEHSNs_SNendIuk7JT5ZB8r4", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/271195048683", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/w3ltirO02LF6", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=238222237228277257206263231260268233194271217261258", server: "HQQ" }
+        ],
+        "Episode 26": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/7z9-y8-12vx", server: "Fembed" },
+            { url: "https://mega.nz/embed#!bVJBCIDL!w_FIUlU86lWYSnxqzWAvCSZXNjrgcI3ioeDNLWqy-Is", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/278242658899", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/PA1Ts7kJ53uP", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=269246254257223230238227228226222237194271217261258", server: "HQQ" }
+        ],
+        "Episode 27": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/7y9wlwz2xvj", server: "Fembed" },
+            { url: "https://mega.nz/embed#!71wTHC7Q!DgVpiUh5iVMlTSF5F9RJ8mgQOoSka4IO1UKUipXEcaQ", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/278093695665", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/26qnVw2UHLSx", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=266271206276241265231270268222257238194271217261258", server: "HQQ" }
+        ],
+        "Episode 28": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/7qo7-lkkwvg", server: "Fembed" },
+            { url: "https://mega.nz/embed#!H5pF2axB!4kaLR3UDLgBOFX9U8J23tZMxiielj6wZddpH0r0a6sE", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/265670625928", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/57Iiklu34t36", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=265268227267277209229278221240265261194271217261258", server: "HQQ" }
+        ],
+        "Episode 29": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/8g9dl1yypoy", server: "Fembed" },
+            { url: "https://mega.nz/embed#!jhhl0IrY!7_bn8YvuW-vDsCQvzp7ygX4V92O429ljd1O9G-4gCW8", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/265670691464", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/C7cR4m7iCDU3", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=221229272270226265259274222213241261194271217261258", server: "HQQ" }
+        ],
+        "Episode 30": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/8x9pp177q97", server: "Fembed" },
+            { url: "https://mega.nz/embed#!T151xKhC!yq3TOzYg4xtJeJPuD8UOBMMZyNSv_WuRi7OUNTeje4g", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/283190561392", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/HURMvPM5hoEw", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=T2pZcE1nZ0Q5T2dycmJPckpqb2lkUT09", server: "HQQ" }
+        ],
+        "Episode 31": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/mz9k6wpp1vq", server: "Fembed" },
+            { url: "https://mega.nz/embed#!zooRha6T!uNikrEMY0cQnHe7Kvrg7RT6inMdYGQPUxIBVZUWILws", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/283190626928", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/Xp0u6Ikx4S3F", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=236232273269245262260239234269239270194271217261258", server: "HQQ" }
+        ],
+        "Episode 32": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/809eez1179j", server: "Fembed" },
+            { url: "https://mega.nz/embed#!Pp5jRSYY!l0XFYrQpLaOiGsoQ2cfoM35MFyHXXGOh_nSPIAH5laQ", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/273990748757", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/5JvL5J7ngkLf", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=207205278267256213231268240234243267194271217261258", server: "HQQ" }
+        ],
+        "Episode 33": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/059l73eenv6", server: "Fembed" },
+            { url: "https://mega.nz/embed#!315XVKqA!RLsMZxMi3rF8YoTB6R9Bu5gyU7zB3tYUZVlrjg6oqJY", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/275857148488", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/2n4024fhlUgw", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=269275235242208227267254238206209275194271217261258", server: "HQQ" }
+        ],
+        "Episode 34": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/549yy6eex9l", server: "Fembed" },
+            { url: "https://mega.nz/embed#!nw5BCILT!_QHPBuIaAhQ7bSzJiCzDZ2FY6IIydTwfZuoi6aGOjEQ", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/271483669014", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/RTkNhv1AmKFc", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=206277237236232205235210204237256209194271217261258", server: "HQQ" }
+        ],
+        "Episode 35": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/409xe3nnyo8", server: "Fembed" },
+            { url: "https://mega.nz/embed#!ThgFiKoT!2Jmat-Fs2hojINxekd-BjMKdN0gnA2nMejjT-aUyD4o", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/282857507504", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/I1lrnY4m65i3", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=266207277235264238226265254263231227194271217261258", server: "HQQ" }
+        ],
+        "Episode 36": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/4dvj4nkkyv1", server: "Fembed" },
+            { url: "https://mega.nz/embed#!jpwHSS7C!zvA5smVBb1sX5ADXeDlDXvQejyWUT070xejLD24w8zM", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/271483734550", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/57K3Ms3mWFcf", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=240266211210205277205231245262213245194271217261258", server: "HQQ" }
+        ],
+        "Episode 37": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/yxo3-rlyqol", server: "Fembed" },
+            { url: "https://mega.nz/embed#!Dp4xiCBA!O1YFfg5Yc4qOaM7ds1dKIj9YDoVIQLPzE-YW36bdcyw", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/251088865802", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/PPJA51XOQqD5", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=dmdHSTB5Qjg5eVFoN3V5TUNtTlQ4UT09", server: "HQQ" }
+        ],
+        "Episode 38": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/5jv4-1ezx90", server: "Fembed" },
+            { url: "https://mega.nz/embed#!C5gHGAaC!yuos_QgaFIWusxF1pkYOsqM7IMCpxwJ_cYz9IfZgvoA", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/264085375577", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/mh7y2Ne484ph", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=244237205206273231269221243254267266194271217261258", server: "HQQ" }
+        ],
+        "Episode 39": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/4lv0-3xmxvq", server: "Fembed" },
+            { url: "https://mega.nz/embed#!39h3wKRJ!d1O-YvqOaKsh2tRNCc9XjYBeMLh1ouMAWdd-MtvLfS4", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/283190889072", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/QQ5nvOdhs030", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=276261278277258253233210267265231270194271217261258", server: "HQQ" }
+        ],
+        "Episode 40": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/env8-ykz0o1", server: "Fembed" },
+            { url: "https://mega.nz/embed#!Dg4F2ITQ!V8eWIfCWHHELfDY__ifNw21HqijzejyuG9g9mt8TbAE", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/271483800086", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/0a1VX2b561mB", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=263204267231206241227268224262262267194271217261258", server: "HQQ" }
+        ],
+        "Episode 41": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/p6vgxlpgx9j", server: "Fembed" },
+            { url: "https://mega.nz/embed#!Xp4HGYJS!Wu258d5lEwiLKcmyj_HW6Fj1Cd9wqyarIlkYah8lJQ4", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/269631687245", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/PRSdL0crI8uw", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=207260232223241257208265238234238209194271217261258", server: "HQQ" }
+        ],
+        "Episode 42": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/zy9n0d4m8v1", server: "Fembed" },
+            { url: "https://mega.nz/embed#!a9wHySBD!nbxlStWLIihu66DogGaX_YnfFu4iJ9q73msaTiijQZg", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/277666532014", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/6WLU5lG7aPh4", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=267226224205230228262227258271246231194271217261258", server: "HQQ" }
+        ],
+        "Episode 43": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/4doj4nkmyo1", server: "Fembed" },
+            { url: "https://mega.nz/embed#!OxxxgQqD!W4IT4UcXooAveqsYbG70K3BA7N-WPBvXB2CMveFB07Q", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/282857638576", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/c13qpr8ktb5y", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=207246276221228237224278267229230225194271217261258", server: "HQQ" }
+        ],
+        "Episode 44": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/mzok6wpq19q", server: "Fembed" },
+            { url: "https://mega.nz/embed#!algxBI5D!bBqLYxUF-TG7DuCi2Aee6s9NUP6pMhdsTSaE8PZn6Cs", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/278242921043", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/80083MFJ81VI", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=243246212255261207239233227223258226194271217261258", server: "HQQ" }
+        ],
+        "Episode 45": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/2w9md63ql96", server: "Fembed" },
+            { url: "https://mega.nz/embed#!Tw5lCIhI!cfyfZKkVHXO_stN5bLtwbJ0vhRNs94KnYo26-mvHqGw", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/278094088881", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/NyB87QQeDw2e", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=Ky9YSmtmb1MvSXNkOFVIKzBLa1pDQT09", server: "HQQ" }
+        ],
+        "Episode 46": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/54oyy6e7xol", server: "Fembed" },
+            { url: "https://mega.nz/embed#!C9wFiCgK!Eq15pM-HUnGiiDVDXIXQd-2okjzVdHSEjFsqNkJvO9I", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/277666597550", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/q2XuN6W0SuQV", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=273259208267274246235259254230270209194271217261258", server: "HQQ" }
+        ],
+        "Episode 47": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/80oeez1d7oj", server: "Fembed" },
+            { url: "https://mega.nz/embed#!25oHkCJY!GHB8mQAnvjxugWtNlborsDavB24R0d8ZVjJdnrHyGak", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/283191085680", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/u6n0LWLAQ0bM", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=MzhVeDR3MEgxNjNpTG1PT1lwclBQZz09", server: "HQQ" }
+        ],
+        "Episode 48": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/7y9wlwz4xvj", server: "Fembed" },
+            { url: "https://mega.nz/embed#!bo5jka6Q!va1JjPzdf8e1GwjTt7eGTAa7E9isVTBr6PGvIQBIl-8", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/271195310827", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/5rJFjsF0D0B3", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=255254223254243267265230212274273241194271217261258", server: "HQQ" }
+        ],
+        "Episode 49": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/5jo4-1e0xv0", server: "Fembed" },
+            { url: "https://mega.nz/embed#!OwpRTIJS!dcRFOeXbVo0KewM19tLgk9HdnBkUhyxlfGdn4rRxneM", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/283191216752", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/88D8oBQcO3sX", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=263223256207206255274237254241261239194271217261258", server: "HQQ" }
+        ],
+        "Episode 50": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/3q91-6l22oy", server: "Fembed" },
+            { url: "https://mega.nz/embed#!nxwV0SiB!EEE9AchBuLMvNQ6ME7Wk4Ge3KgW8q2LwBCujWhFQsCI", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/282857835184", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/W31WT5W81D41", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=227241264266255254253253228227263244194271217261258", server: "HQQ" }
+        ],
+        "Episode 51": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/mzok6wp519q", server: "Fembed" },
+            { url: "https://mega.nz/embed#!b5pTFYJA!XQt1f8LwZJIA7Bt11a-B73PfF1eCiY9gs9n2zo3g7N4", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/278094285489", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/DfQIxyBM18ts", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=235269225237233258239254266262266265194271217261258", server: "HQQ" }
+        ],
+            };
+
+            function populateEpisodes() {
+                var episodeSelect = document.getElementById('episode-select');
+                for (var episode in episodes) {
+                    var option = document.createElement('option');
+                    option.value = episode;
+                    option.textContent = episode;
+                    episodeSelect.appendChild(option);
+                }
+            }
+
+            function populateServers(episode) {
+                var serverSelect = document.getElementById('server-select');
+                serverSelect.innerHTML = '<option value="none">-- Choose a Server --</option>'; // Clear existing options
+                if (episodes[episode]) {
+                    episodes[episode].forEach(function (episodeData) {
+                        var option = document.createElement('option');
+                        option.value = episodeData.url;
+                        option.textContent = episodeData.server;
+                        serverSelect.appendChild(option);
+                    });
+                }
+            }
+
+            function changerEpisode() {
+                var episodeSelect = document.getElementById('episode-select');
+                var selectedEpisode = episodeSelect.value;
+                populateServers(selectedEpisode);
+                changerServeur();
+            }
+
+            function changerServeur() {
+                var serverSelect = document.getElementById('server-select');
+                var selectedUrl = serverSelect.value;
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = selectedUrl;
+                localStorage.setItem('shugo chara_activeEpisode', selectedUrl);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                populateEpisodes();
+                var activeEpisode = localStorage.getItem('shugo chara_activeEpisode');
+                if (activeEpisode) {
+                    document.getElementById('episode-select').value = Object.keys(episodes).find(function (episode) {
+                        return episodes[episode].some(function (server) {
+                            return server.url === activeEpisode;
+                        });
+                    });
+                    changerEpisode();
+                    document.getElementById('server-select').value = activeEpisode;
+                    changerServeur();
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

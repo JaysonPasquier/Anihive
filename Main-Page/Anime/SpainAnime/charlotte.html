@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>charlotte - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://animemovil2.com/media/portadas/2294.webp');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://animemovil2.com/media/portadas/2294.webp');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+            top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://animemovil2.com/media/portadas/2294.webp');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">charlotte - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select id="episode-select" onchange="changerEpisode()">
+                        <option value="none">-- Choose an Episode --</option>
+                        <!-- Les options pour les épisodes seront ajoutées ici via JavaScript -->
+                    </select>
+                    <select id="server-select" onchange="changerServeur()">
+                        <option value="none">-- Choose a Server --</option>
+                        <!-- Les options pour les serveurs seront ajoutées ici via JavaScript -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "charlotte"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            var episodes = {
+                //Ajoutez dautres épisodes et serveurs ici
+        "Episode 1": [
+            { url: "https://mega.nz/embed#!0BslCSbZ!p03IYXrn8AX81pIeAu7k_XGkjWcY8APFVJT5H7qzKas", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/7qv7-rd2w9g", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/yT8OyJb6NUxa", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=205227227207212245207234239233205208", server: "HQQ" }
+        ],
+        "Episode 2": [
+            { url: "https://mega.nz/embed#!lVsDjYqa!Ojh1NqHjCJWdg0QBjIVeYni19kwmFmvSvntcN1yadlU", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/3q91-3y12oy", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/474404293297", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/Tl0IUCjYFFk5", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=206211245222234241207243235208228210", server: "HQQ" }
+        ],
+        "Episode 3": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/80oee2lq7oj", server: "Fembed" },
+            { url: "https://mega.nz/embed#!lsNWVTqQ!za4uKBwBtyignwjKotJLq4MnIV8v7BAIUKCU30kmdm0", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/20EjHBYVHE7A", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=233243241228210239224238235244221243", server: "HQQ" }
+        ],
+        "Episode 4": [
+            { url: "https://mega.nz/embed#!ENx3UCjI!VCna3Unlue4eSLmLVCbtm3k32N3jv7WJXnJMIzk5xzI", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/40oxe4gwyv8", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/568683858608", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/228cgmUWN60O", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=239239209227206207211207228235239238", server: "HQQ" }
+        ],
+        "Episode 5": [
+            { url: "https://mega.nz/embed#!YJlHhAAa!e85riw_GCaTAotP19oo5l6m-0XagS96mZ28Obf_puJs", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/zyvn0yg-8o1", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/lEqIsK7voCVu", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=227212241221244212205245227239208231", server: "HQQ" }
+        ],
+        "Episode 6": [
+            { url: "https://mega.nz/embed#!QI8zSC5T!U0OhywkLkey2Ovn_DQOch8WeC83MQ4LzDVunLta3-SU", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/4d9j4-g8y91", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/470013774510", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/44htXq40O0yl", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=243234241244241206213205227239239213", server: "HQQ" }
+        ],
+        "Episode 7": [
+            { url: "https://mega.nz/embed#!xYshzKjA!JHoZfkN3rZW_FvAg8XCPcaDS54wdyZW9Am96yWJrhMs", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/5jo4-74wxv0", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ok.ru/videoembed/445528214224", server: "Okru" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/M1Sjegk5AT6v", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=235227231208212213238222245233243221", server: "HQQ" }
+        ],
+        "Episode 8": [
+            { url: "https://mega.nz/embed#!dRlnxAob!WETpMJrPnQrBAhDPOgtzfoqEx14iehrQ0kzQpOI5D0w", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/7qv7-rd6w9g", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/8M6R5885jg33", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=207224209243208238224244239207222227", server: "HQQ" }
+        ],
+        "Episode 9": [
+            { url: "https://mega.nz/embed#!ZVljBSoQ!Y6E2IpBoU2asjMkfJ1ZgP0yMf_-Sk-icZTYz4SBRF5A", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/8xoppyg2qo7", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/4xYdud647fJH", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=212243244244212238245210245235212228", server: "HQQ" }
+        ],
+        "Episode 10": [
+            { url: "https://mega.nz/embed#!ANtnXIDA!d2UiiA_gxOfmdBkeqepFXQOCbAEwxV1v6WhlVfp5Y6s", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/mzok6yg719q", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/2F2t4QeqBVxW", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=S1dhQmE4YnpUUkcyeXplZnVCL29Ddz09", server: "HQQ" }
+        ],
+        "Episode 11": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/80oee2l87oj", server: "Fembed" },
+            { url: "https://mega.nz/embed#!4N9DwaaD!cYO4RAYX-RHs3WUi66PUxQtuB77kIjkJqPcGwcswXY0", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/b47X037NFU8u", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=MkNWSC9nQmNYTEVtTFpFQVBvZ0ppQT09", server: "HQQ" }
+        ],
+        "Episode 12": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/eno8-p07091", server: "Fembed" },
+            { url: "https://mega.nz/embed#!IQkjgAbZ!EhYi39kVT3pKt-I0d76OVibrqxzJrtmJY0ItIDayzSg", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/P4OQDIBd00d0", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=TUplVzkyUnFaNnR5QlZuRWhzZVNsUT09", server: "HQQ" }
+        ],
+        "Episode 13": [
+            { url: "https://mega.nz/embed#!9I1nhCBT!N-hNsGds9upeLhCr41QZMEG_FB3p_OXmFD5l00eJd-g", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/yxv3-633qvl", server: "Fembed" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/0SX4gCqfUhS8", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=a3VydENZSlVGQzVxdXM5dlQ3MDJIQT09", server: "HQQ" }
+        ],
+        "Episode 14": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/7qo7-rddwvg", server: "Fembed" },
+            { url: "https://mega.nz/embed#!FN9DgYoJ!hhBnseAIE_BMugcW5_1ScQmFFMSAXZFnpw9p3NXzm8w", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/PS7cbe4g3w2W", server: "YourUpload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.tv/player/embed_player.php?vid=L0F1R1o5dE1OTldiVU9GbW5XcnRRUT09", server: "HQQ" }
+        ],
+            };
+
+            function populateEpisodes() {
+                var episodeSelect = document.getElementById('episode-select');
+                for (var episode in episodes) {
+                    var option = document.createElement('option');
+                    option.value = episode;
+                    option.textContent = episode;
+                    episodeSelect.appendChild(option);
+                }
+            }
+
+            function populateServers(episode) {
+                var serverSelect = document.getElementById('server-select');
+                serverSelect.innerHTML = '<option value="none">-- Choose a Server --</option>'; // Clear existing options
+                if (episodes[episode]) {
+                    episodes[episode].forEach(function (episodeData) {
+                        var option = document.createElement('option');
+                        option.value = episodeData.url;
+                        option.textContent = episodeData.server;
+                        serverSelect.appendChild(option);
+                    });
+                }
+            }
+
+            function changerEpisode() {
+                var episodeSelect = document.getElementById('episode-select');
+                var selectedEpisode = episodeSelect.value;
+                populateServers(selectedEpisode);
+                changerServeur();
+            }
+
+            function changerServeur() {
+                var serverSelect = document.getElementById('server-select');
+                var selectedUrl = serverSelect.value;
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = selectedUrl;
+                localStorage.setItem('charlotte_activeEpisode', selectedUrl);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                populateEpisodes();
+                var activeEpisode = localStorage.getItem('charlotte_activeEpisode');
+                if (activeEpisode) {
+                    document.getElementById('episode-select').value = Object.keys(episodes).find(function (episode) {
+                        return episodes[episode].some(function (server) {
+                            return server.url === activeEpisode;
+                        });
+                    });
+                    changerEpisode();
+                    document.getElementById('server-select').value = activeEpisode;
+                    changerServeur();
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

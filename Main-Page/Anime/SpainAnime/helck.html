@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>helck - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://animemovil2.com/media/portadas/3984.webp');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://animemovil2.com/media/portadas/3984.webp');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+            top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://animemovil2.com/media/portadas/3984.webp');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">helck - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select id="episode-select" onchange="changerEpisode()">
+                        <option value="none">-- Choose an Episode --</option>
+                        <!-- Les options pour les épisodes seront ajoutées ici via JavaScript -->
+                    </select>
+                    <select id="server-select" onchange="changerServeur()">
+                        <option value="none">-- Choose a Server --</option>
+                        <!-- Les options pour les serveurs seront ajoutées ici via JavaScript -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "helck"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            var episodes = {
+                //Ajoutez dautres épisodes et serveurs ici
+        "Episode 1": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=3uo7ny9bpe80", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=y6Z1dYh_QDvVew", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=9df5cgbty", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/stream.php?url=2uhduyiwcuf7", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/P3gzZl6GazFbzz/Helck-01.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/Zi8yWGNtVEIxVTlleUIzZVVKanJrUT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ahvsh.com/e/vvq5o173cqfh", server: "StreamHide" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.co/embed-dmp2n4b5b3ke.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-kkhh7gomy1c0.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/x34236x6htdd", server: "Voex" },
+            { url: "https://mega.nz/embed#!V612lTgD!6ipHqxmHRLkGhB7VEmOYZYbtVmOPg9rmQAtbyRJPrhk", server: "Mega" }
+        ],
+        "Episode 2": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=fgs3pb5v9609", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=j3BvEM_kcQq29g", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=4j6e3xha8", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/stream.php?url=ovbpejh9zcwm", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/ew0m2d0vx2Ik8V/2heclk.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/T1c0SzQ1UllSb1pTcjBzZ1ZYYUtDUT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ahvsh.com/e/yevayrdlqljg", server: "StreamHide" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.co/embed-pwbj5zf9k3vf.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-bdvj3p0w9932.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/stotpnlf1tvm", server: "Voex" },
+            { url: "https://mega.nz/embed#!JqFymbyD!PeYZAqczBE6Y5DbDXp1kYWc09fYFK9tBMedV-l9U6uE", server: "Mega" }
+        ],
+        "Episode 3": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=ef1m7v1cd68z", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=2cS7OZd3colUeA", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=dbzv592jc", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/WgQeGW8lVQTqM7/3hecl.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/alUwejNXTEdNbWpRVFQ0VUM2alc3QT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.io/embed-gimms56orcwl.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-qg5zngcfqjdm.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamwish.to/e/9jrfq53irjh4", server: "StreamWish" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamhub.gg/e/eezp0yskm5kx", server: "StreamHub" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/wzadcvoudcgf", server: "Voex" },
+            { url: "https://mega.nz/embed#!FvFkBLID!jPsdauc1fBeSYLyHFL93T0MiiKFoedQcqrPqopeZDeo", server: "Mega" }
+        ],
+        "Episode 4": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=cvni4jjdiiie", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=u7xTs7-pr3ncUw", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=mycc2r4b9", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/L2vvD01AQ9iR2ba/4Helck.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/VzZadGRWRUF1ZVdlU0JZVVNQSTYzUT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.io/embed-xzj0yo6n8j7n.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-d3eeva9jvd9k.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamwish.to/e/7fod2vpu9bom", server: "StreamWish" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamhub.gg/e/wd77xv9fjcrg", server: "StreamHub" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/js2rani0zfdn", server: "Voex" },
+            { url: "https://mega.nz/embed#!wn8WibDK!rbYIXi-islPVthHeV-5eb787OgUeHVORgSHWAL16-YM", server: "Mega" }
+        ],
+        "Episode 5": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=3zblgqq71nwb", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=rvfgxg4hhv4l", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=94mnz77zcao0", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=iwu3oygm166n", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=GPLHrL3qzcJLsA", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=mycc2r4b9", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/RX4Ypqr3ORsBJB/5Helck.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/TTJHYjRxekd6RDl3TUVUd0oxTGJQZz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.io/embed-7o9tdxfcpcu4.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-lzbb7ljy3dyk.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embedwish.com/e/47ymctj672gu", server: "StreamWish" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamhub.gg/e/wiebwnqi2l3d", server: "StreamHub" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/3kxomc262gt5", server: "Voex" },
+            { url: "https://mega.nz/embed#!c2VlWCZD!5cWZ8G4jv4TraxSfM_bkcEyqhEDmY-IXmCqr1UsTO7s", server: "Mega" }
+        ],
+        "Episode 6": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=miwp51r9n9cx", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=ip9zgo9evk6e", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=p0a8lnbao9ov", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=x398f4eeuldt", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=237t8-2flo7qrQ", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=xxwakhszg", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/encrypt.php?id=aHR0cHM6Ly9zdHJlYW10YXBlLmNvbS9lL0d3a1o2bDE3bHlpYUdRLzZIZWxjay5tcDQ", server: "Tape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/GwkZ6l17lyiaGQ/6Helck.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/UWp6emRJYjdhRjdYaDRrRXRDVjFLUT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-n391c0nim871.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/va5n5f6uolsm", server: "Voex" }
+        ],
+        "Episode 7": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=0e7m0yan645z", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=w2t6lcu08pr5", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=210zaum0s6zi", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=td5n5clorgxe", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/aYVj4mXM2JtxqD1/Helck-07.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-gizf7xke8j6h.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/twds0byg9wxm", server: "Voex" }
+        ],
+        "Episode 8": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=g9lks70kbfw2", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=erdoiuk3phey", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=l7b8yr6iybrd", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=dqyiwgpz29q8", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/load.php?id=0bt2s5re66bj", server: "PlusDrop" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/1zd843WjomixWK/8Helck.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-evobwe9oliqe.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/gozyvrqtbbyi", server: "Voex" }
+        ],
+        "Episode 9": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=yfukaaufol0q", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=048et0dfjjop", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=eq1hr7e0mbhw", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=lizqcp5j1ppy", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/DPpaow9YWxIk2ka/9heclk.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-g9jiy5zo8v90.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/i7gvxbgsdflt", server: "Voex" }
+        ],
+        "Episode 10": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=1925bq6fo0n0", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=38hziswujrxv", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=682e8jgl1xj4", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=ims1qsx7km16", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/VYkQ0GKQw0Cze3/helck-10.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-qfx8vmx9yvso.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/noowgjhsvjt8", server: "Voex" }
+        ],
+        "Episode 11": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=dkjbkpfr7znz", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=4ewwa63w3k8n", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=t0sanzcz4vb3", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/vpmgZAJ0ppT4xod/11heclk.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-u2amq23gtae9.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/efdmitdvid58", server: "Voex" }
+        ],
+        "Episode 12": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=clcfsvd6hvro", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=yre2hm9mtwwm", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=puubqso5z7te", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/KJ7vVGz1L3t0xPV/Helck-12.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-3du2q2f36r8z.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/xlbvwnaeiu2a", server: "Voex" }
+        ],
+        "Episode 13": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=rf1clu8vkmqg", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=sr8m57jtevln", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=64x30b40z9cm", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-ostgha4k7vru.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/eqgxqdtl1fdw", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/GWvdj4kmZ1C1RVr/Helck13.mp4", server: "StreamTape" }
+        ],
+        "Episode 14": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=yzr54xm9n3xw", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=jhs7inprjisz", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-wco9bxcj04oi.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/c3tofafyctck", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/jkLAkB9jQqIQ3J/Helck-14.mp4", server: "StreamTape" }
+        ],
+        "Episode 15": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=tj5l8il4bxjd", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=txxcm1eda7c5", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/b34AleYKKYsxyR/15hecl.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-hvz8is6gg7cj.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/czi56amai1fr", server: "Voex" }
+        ],
+        "Episode 16": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=kg669ngfc158", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=u02a0a2swvs7", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/J2OK3YQmJAcjd49/Helck-16v2.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-7lrdnsp3xmy0.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/fgzmi9satums", server: "Voex" }
+        ],
+        "Episode 17": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=8b2330uuvbwp", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=ictxfllaahlf", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-evs778kgh1no.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/sa2cyxlaoa9x", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/mLoqpRqD7Xcb3Ow/Helck-17.mp4", server: "StreamTape" }
+        ],
+        "Episode 18": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=6t4xx5qz3f6l", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=br9rs19edwld", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/6bJeyggzq8C9BAY/18hecl.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-x9wi30szncc1.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/ckmx5bvfjxtm", server: "Voex" }
+        ],
+        "Episode 19": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=arey7hslovvg", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=o2rxnt47pd20", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-dobjuh63cpp6.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/nvzafndq8jk2", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/dgKDqv9q1jukVz0/Helck-19.mp4", server: "StreamTape" }
+        ],
+        "Episode 20": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=z3lzkifk20bc", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=yl6zdokvzmxg", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/Y1z7gB8ZmXcdeQ/Helck-20.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-nqi5ustyso0d.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/zao0gl4wu2ei", server: "Voex" }
+        ],
+        "Episode 21": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=sb6bvi57772s", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=xjy8wjkkuxj4", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-tsv5wfzxruho.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/sbi1rt1gvgil", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/9XpV90dVPmhaz1V/21helck.mp4", server: "StreamTape" }
+        ],
+        "Episode 22": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=wqg0t988mupc", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=yiggyw3yd61n", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-vih9mh1zjk8a.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/sxugxh8ee9zs", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/vDjB8bwKgkfYLA/Helck_22.mp4", server: "StreamTape" }
+        ],
+        "Episode 23": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=zbahwbaz49wk", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=20duh588jget", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-20zr3g296iht.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/nnrgrobytcad", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/pkopjLXY93iryBK/Helck-23.mp4", server: "StreamTape" }
+        ],
+        "Episode 24": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=pwuq1v7h42o6", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=8qg6zuejsgdg", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=lz7x8zygxyyb", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/X2BJMMq9M0FPjK/Helck_24.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-wr61iq68e27y.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/plttdxrlzzse", server: "Voex" }
+        ],
+            };
+
+            function populateEpisodes() {
+                var episodeSelect = document.getElementById('episode-select');
+                for (var episode in episodes) {
+                    var option = document.createElement('option');
+                    option.value = episode;
+                    option.textContent = episode;
+                    episodeSelect.appendChild(option);
+                }
+            }
+
+            function populateServers(episode) {
+                var serverSelect = document.getElementById('server-select');
+                serverSelect.innerHTML = '<option value="none">-- Choose a Server --</option>'; // Clear existing options
+                if (episodes[episode]) {
+                    episodes[episode].forEach(function (episodeData) {
+                        var option = document.createElement('option');
+                        option.value = episodeData.url;
+                        option.textContent = episodeData.server;
+                        serverSelect.appendChild(option);
+                    });
+                }
+            }
+
+            function changerEpisode() {
+                var episodeSelect = document.getElementById('episode-select');
+                var selectedEpisode = episodeSelect.value;
+                populateServers(selectedEpisode);
+                changerServeur();
+            }
+
+            function changerServeur() {
+                var serverSelect = document.getElementById('server-select');
+                var selectedUrl = serverSelect.value;
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = selectedUrl;
+                localStorage.setItem('helck_activeEpisode', selectedUrl);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                populateEpisodes();
+                var activeEpisode = localStorage.getItem('helck_activeEpisode');
+                if (activeEpisode) {
+                    document.getElementById('episode-select').value = Object.keys(episodes).find(function (episode) {
+                        return episodes[episode].some(function (server) {
+                            return server.url === activeEpisode;
+                        });
+                    });
+                    changerEpisode();
+                    document.getElementById('server-select').value = activeEpisode;
+                    changerServeur();
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

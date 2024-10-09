@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naruto Shippuuden - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://static.openni.ru/uploads/posts/2016-06/1464842897_1.jpg');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://static.openni.ru/uploads/posts/2016-06/1464842897_1.jpg');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 45%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+			top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://static.openni.ru/uploads/posts/2016-06/1464842897_1.jpg');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">Naruto Shippuuden - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select onchange="changerEpisode(this.value)">
+					    <option value="none">-- Choose an Episode --</option>
+                        <option value="https://animevost.org/frame5.php?play=410034820">Episode 1 серия</option>
+<option value="https://animevost.org/frame5.php?play=1075949743">Episode 2 серия</option>
+<option value="https://animevost.org/frame5.php?play=572375795">Episode 3 серия</option>
+<option value="https://animevost.org/frame5.php?play=313316053">Episode 4 серия</option>
+<option value="https://animevost.org/frame5.php?play=365928949">Episode 5 серия</option>
+<option value="https://animevost.org/frame5.php?play=599699866">Episode 6 серия</option>
+<option value="https://animevost.org/frame5.php?play=1968945732">Episode 7 серия</option>
+<option value="https://animevost.org/frame5.php?play=1369242806">Episode 8 серия</option>
+<option value="https://animevost.org/frame5.php?play=1613158313">Episode 9 серия</option>
+<option value="https://animevost.org/frame5.php?play=924206894">Episode 10 серия</option>
+<option value="https://animevost.org/frame5.php?play=982879131">Episode 11 серия</option>
+<option value="https://animevost.org/frame5.php?play=1778101757">Episode 12 серия</option>
+<option value="https://animevost.org/frame5.php?play=852742770">Episode 13 серия</option>
+<option value="https://animevost.org/frame5.php?play=1525772460">Episode 14 серия</option>
+<option value="https://animevost.org/frame5.php?play=1161201056">Episode 15 серия</option>
+<option value="https://animevost.org/frame5.php?play=1235252517">Episode 16 серия</option>
+<option value="https://animevost.org/frame5.php?play=1044017849">Episode 17 серия</option>
+<option value="https://animevost.org/frame5.php?play=1845372301">Episode 18 серия</option>
+<option value="https://animevost.org/frame5.php?play=1036800807">Episode 19 серия</option>
+<option value="https://animevost.org/frame5.php?play=1632433190">Episode 20 серия</option>
+<option value="https://animevost.org/frame5.php?play=913105059">Episode 21 серия</option>
+<option value="https://animevost.org/frame5.php?play=656382191">Episode 22 серия</option>
+<option value="https://animevost.org/frame5.php?play=1509864362">Episode 23 серия</option>
+<option value="https://animevost.org/frame5.php?play=1944029191">Episode 24 серия</option>
+<option value="https://animevost.org/frame5.php?play=978638553">Episode 25 серия</option>
+<option value="https://animevost.org/frame5.php?play=777350923">Episode 26 серия</option>
+<option value="https://animevost.org/frame5.php?play=397902519">Episode 27 серия</option>
+<option value="https://animevost.org/frame5.php?play=210536547">Episode 28 серия</option>
+<option value="https://animevost.org/frame5.php?play=459734560">Episode 29 серия</option>
+<option value="https://animevost.org/frame5.php?play=1703447343">Episode 30 серия</option>
+<option value="https://animevost.org/frame5.php?play=130217721">Episode 31 серия</option>
+<option value="https://animevost.org/frame5.php?play=1183549160">Episode 32 серия</option>
+<option value="https://animevost.org/frame5.php?play=269403524">Episode 33 серия</option>
+<option value="https://animevost.org/frame5.php?play=1739642958">Episode 34 серия</option>
+<option value="https://animevost.org/frame5.php?play=2006155002">Episode 35 серия</option>
+<option value="https://animevost.org/frame5.php?play=561903385">Episode 36 серия</option>
+<option value="https://animevost.org/frame5.php?play=1936612451">Episode 37 серия</option>
+<option value="https://animevost.org/frame5.php?play=1281704266">Episode 38 серия</option>
+<option value="https://animevost.org/frame5.php?play=963435981">Episode 39 серия</option>
+<option value="https://animevost.org/frame5.php?play=1813768756">Episode 40 серия</option>
+<option value="https://animevost.org/frame5.php?play=1974768408">Episode 41 серия</option>
+<option value="https://animevost.org/frame5.php?play=710459470">Episode 42 серия</option>
+<option value="https://animevost.org/frame5.php?play=355919697">Episode 43 серия</option>
+<option value="https://animevost.org/frame5.php?play=928798956">Episode 44 серия</option>
+<option value="https://animevost.org/frame5.php?play=1508362817">Episode 45 серия</option>
+<option value="https://animevost.org/frame5.php?play=806089478">Episode 46 серия</option>
+<option value="https://animevost.org/frame5.php?play=163515645">Episode 47 серия</option>
+<option value="https://animevost.org/frame5.php?play=878704957">Episode 48 серия</option>
+<option value="https://animevost.org/frame5.php?play=600785628">Episode 49 серия</option>
+<option value="https://animevost.org/frame5.php?play=596225112">Episode 50 серия</option>
+<option value="https://animevost.org/frame5.php?play=2085559714">Episode 51 серия</option>
+<option value="https://animevost.org/frame5.php?play=1650437072">Episode 52 серия</option>
+<option value="https://animevost.org/frame5.php?play=1119167692">Episode 53 серия</option>
+<option value="https://animevost.org/frame5.php?play=885657594">Episode 54 серия</option>
+<option value="https://animevost.org/frame5.php?play=1626795072">Episode 55 серия</option>
+<option value="https://animevost.org/frame5.php?play=1214832485">Episode 56 серия</option>
+<option value="https://animevost.org/frame5.php?play=907665943">Episode 57 серия</option>
+<option value="https://animevost.org/frame5.php?play=2052926497">Episode 58 серия</option>
+<option value="https://animevost.org/frame5.php?play=526314324">Episode 59 серия</option>
+<option value="https://animevost.org/frame5.php?play=500877467">Episode 60 серия</option>
+<option value="https://animevost.org/frame5.php?play=789461186">Episode 61 серия</option>
+<option value="https://animevost.org/frame5.php?play=1370824553">Episode 62 серия</option>
+<option value="https://animevost.org/frame5.php?play=1634627532">Episode 63 серия</option>
+<option value="https://animevost.org/frame5.php?play=1806017318">Episode 64 серия</option>
+<option value="https://animevost.org/frame5.php?play=382018465">Episode 65 серия</option>
+<option value="https://animevost.org/frame5.php?play=516289479">Episode 66 серия</option>
+<option value="https://animevost.org/frame5.php?play=1635692478">Episode 67 серия</option>
+<option value="https://animevost.org/frame5.php?play=1164734919">Episode 68 серия</option>
+<option value="https://animevost.org/frame5.php?play=1198619333">Episode 69 серия</option>
+<option value="https://animevost.org/frame5.php?play=155488353">Episode 70 серия</option>
+<option value="https://animevost.org/frame5.php?play=2110084511">Episode 71 серия</option>
+<option value="https://animevost.org/frame5.php?play=11936884">Episode 72 серия</option>
+<option value="https://animevost.org/frame5.php?play=751553349">Episode 73 серия</option>
+<option value="https://animevost.org/frame5.php?play=70774915">Episode 74 серия</option>
+<option value="https://animevost.org/frame5.php?play=1633586041">Episode 75 серия</option>
+<option value="https://animevost.org/frame5.php?play=2137565289">Episode 76 серия</option>
+<option value="https://animevost.org/frame5.php?play=1274163010">Episode 77 серия</option>
+<option value="https://animevost.org/frame5.php?play=1235440370">Episode 78 серия</option>
+<option value="https://animevost.org/frame5.php?play=1399937219">Episode 79 серия</option>
+<option value="https://animevost.org/frame5.php?play=1335173309">Episode 80 серия</option>
+<option value="https://animevost.org/frame5.php?play=1514527231">Episode 81 серия</option>
+<option value="https://animevost.org/frame5.php?play=375575043">Episode 82 серия</option>
+<option value="https://animevost.org/frame5.php?play=104529806">Episode 83 серия</option>
+<option value="https://animevost.org/frame5.php?play=86447197">Episode 84 серия</option>
+<option value="https://animevost.org/frame5.php?play=360867418">Episode 85 серия</option>
+<option value="https://animevost.org/frame5.php?play=2102374590">Episode 86 серия</option>
+<option value="https://animevost.org/frame5.php?play=1155315312">Episode 87 серия</option>
+<option value="https://animevost.org/frame5.php?play=690139547">Episode 88 серия</option>
+<option value="https://animevost.org/frame5.php?play=1968404873">Episode 89 серия</option>
+<option value="https://animevost.org/frame5.php?play=607056476">Episode 90 серия</option>
+<option value="https://animevost.org/frame5.php?play=1486049198">Episode 91 серия</option>
+<option value="https://animevost.org/frame5.php?play=1490949573">Episode 92 серия</option>
+<option value="https://animevost.org/frame5.php?play=657939946">Episode 93 серия</option>
+<option value="https://animevost.org/frame5.php?play=433274965">Episode 94 серия</option>
+<option value="https://animevost.org/frame5.php?play=1739801984">Episode 95 серия</option>
+<option value="https://animevost.org/frame5.php?play=1303420636">Episode 96 серия</option>
+<option value="https://animevost.org/frame5.php?play=795929119">Episode 97 серия</option>
+<option value="https://animevost.org/frame5.php?play=1012970730">Episode 98 серия</option>
+<option value="https://animevost.org/frame5.php?play=315399630">Episode 99 серия</option>
+<option value="https://animevost.org/frame5.php?play=76899453">Episode 100 серия</option>
+<option value="https://animevost.org/frame5.php?play=1736072637">Episode 101 серия</option>
+<option value="https://animevost.org/frame5.php?play=936561021">Episode 102 серия</option>
+<option value="https://animevost.org/frame5.php?play=987998611">Episode 103 серия</option>
+<option value="https://animevost.org/frame5.php?play=1140929014">Episode 104 серия</option>
+<option value="https://animevost.org/frame5.php?play=1315540905">Episode 105 серия</option>
+<option value="https://animevost.org/frame5.php?play=1500750630">Episode 106 серия</option>
+<option value="https://animevost.org/frame5.php?play=1171707360">Episode 107 серия</option>
+<option value="https://animevost.org/frame5.php?play=265899774">Episode 108 серия</option>
+<option value="https://animevost.org/frame5.php?play=1663148591">Episode 109 серия</option>
+<option value="https://animevost.org/frame5.php?play=216983757">Episode 110 серия</option>
+<option value="https://animevost.org/frame5.php?play=654743585">Episode 111 серия</option>
+<option value="https://animevost.org/frame5.php?play=1509463289">Episode 112 серия</option>
+<option value="https://animevost.org/frame5.php?play=2095680725">Episode 113 серия</option>
+<option value="https://animevost.org/frame5.php?play=656580920">Episode 114 серия</option>
+<option value="https://animevost.org/frame5.php?play=1118871806">Episode 115 серия</option>
+<option value="https://animevost.org/frame5.php?play=472249279">Episode 116 серия</option>
+<option value="https://animevost.org/frame5.php?play=1756015227">Episode 117 серия</option>
+<option value="https://animevost.org/frame5.php?play=1090086022">Episode 118 серия</option>
+<option value="https://animevost.org/frame5.php?play=459340682">Episode 119(1) серия</option>
+<option value="https://animevost.org/frame5.php?play=428056338">Episode 119(2) серия</option>
+<option value="https://animevost.org/frame5.php?play=577815979">Episode 120 серия</option>
+<option value="https://animevost.org/frame5.php?play=1664151546">Episode 121 серия</option>
+<option value="https://animevost.org/frame5.php?play=17242726">Episode 122 серия</option>
+<option value="https://animevost.org/frame5.php?play=350968506">Episode 123 серия</option>
+<option value="https://animevost.org/frame5.php?play=489381877">Episode 124 серия</option>
+<option value="https://animevost.org/frame5.php?play=1905187305">Episode 125 серия</option>
+<option value="https://animevost.org/frame5.php?play=89779998">Episode 126 серия</option>
+<option value="https://animevost.org/frame5.php?play=1452689908">Episode 127(1) серия</option>
+<option value="https://animevost.org/frame5.php?play=1693039061">Episode 127(2) серия</option>
+<option value="https://animevost.org/frame5.php?play=1587206823">Episode 128(1) серия</option>
+<option value="https://animevost.org/frame5.php?play=845211800">Episode 128(2) серия</option>
+<option value="https://animevost.org/frame5.php?play=1264141313">Episode 129 серия</option>
+<option value="https://animevost.org/frame5.php?play=202173894">Episode 130 серия</option>
+<option value="https://animevost.org/frame5.php?play=503144208">Episode 131 серия</option>
+<option value="https://animevost.org/frame5.php?play=572039900">Episode 132 серия</option>
+<option value="https://animevost.org/frame5.php?play=1512856882">Episode 133 серия</option>
+<option value="https://animevost.org/frame5.php?play=479154877">Episode 134 серия</option>
+<option value="https://animevost.org/frame5.php?play=884484778">Episode 135 серия</option>
+<option value="https://animevost.org/frame5.php?play=843812767">Episode 136 серия</option>
+<option value="https://animevost.org/frame5.php?play=2045914691">Episode 137 серия</option>
+<option value="https://animevost.org/frame5.php?play=264487125">Episode 138 серия</option>
+<option value="https://animevost.org/frame5.php?play=67715081">Episode 139 серия</option>
+<option value="https://animevost.org/frame5.php?play=791428677">Episode 140 серия</option>
+<option value="https://animevost.org/frame5.php?play=1501620482">Episode 141 серия</option>
+<option value="https://animevost.org/frame5.php?play=1246835056">Episode 142 серия</option>
+<option value="https://animevost.org/frame5.php?play=1728005267">Episode 143 серия</option>
+<option value="https://animevost.org/frame5.php?play=597258214">Episode 144 серия</option>
+<option value="https://animevost.org/frame5.php?play=1535557493">Episode 145 серия</option>
+<option value="https://animevost.org/frame5.php?play=1242582232">Episode 146 серия</option>
+<option value="https://animevost.org/frame5.php?play=1847577015">Episode 147 серия</option>
+<option value="https://animevost.org/frame5.php?play=92060484">Episode 148 серия</option>
+<option value="https://animevost.org/frame5.php?play=742032612">Episode 149 серия</option>
+<option value="https://animevost.org/frame5.php?play=947542535">Episode 150 серия</option>
+<option value="https://animevost.org/frame5.php?play=412289786">Episode 151 серия</option>
+<option value="https://animevost.org/frame5.php?play=401223968">Episode 152 серия</option>
+<option value="https://animevost.org/frame5.php?play=1238480211">Episode 153 серия</option>
+<option value="https://animevost.org/frame5.php?play=682120580">Episode 154 серия</option>
+<option value="https://animevost.org/frame5.php?play=268483262">Episode 155 серия</option>
+<option value="https://animevost.org/frame5.php?play=2002316604">Episode 156 серия</option>
+<option value="https://animevost.org/frame5.php?play=446780909">Episode 157 серия</option>
+<option value="https://animevost.org/frame5.php?play=774787787">Episode 158 серия</option>
+<option value="https://animevost.org/frame5.php?play=1774803840">Episode 159 серия</option>
+<option value="https://animevost.org/frame5.php?play=1186412609">Episode 160 серия</option>
+<option value="https://animevost.org/frame5.php?play=1254307763">Episode 161 серия</option>
+<option value="https://animevost.org/frame5.php?play=1698305314">Episode 162 серия</option>
+<option value="https://animevost.org/frame5.php?play=946024934">Episode 163 серия</option>
+<option value="https://animevost.org/frame5.php?play=1434214567">Episode 164 серия</option>
+<option value="https://animevost.org/frame5.php?play=2112863525">Episode 165 серия</option>
+<option value="https://animevost.org/frame5.php?play=1601454143">Episode 166 серия</option>
+<option value="https://animevost.org/frame5.php?play=939044011">Episode 167 серия</option>
+<option value="https://animevost.org/frame5.php?play=567129282">Episode 168 серия</option>
+<option value="https://animevost.org/frame5.php?play=426870431">Episode 169 серия</option>
+<option value="https://animevost.org/frame5.php?play=1481841493">Episode 170 серия</option>
+<option value="https://animevost.org/frame5.php?play=44606637">Episode 171 серия</option>
+<option value="https://animevost.org/frame5.php?play=83255925">Episode 172 серия</option>
+<option value="https://animevost.org/frame5.php?play=1120119929">Episode 173 серия</option>
+<option value="https://animevost.org/frame5.php?play=640999523">Episode 174 серия</option>
+<option value="https://animevost.org/frame5.php?play=452348831">Episode 175 серия</option>
+<option value="https://animevost.org/frame5.php?play=1964921229">Episode 176 серия</option>
+<option value="https://animevost.org/frame5.php?play=834177322">Episode 177 серия</option>
+<option value="https://animevost.org/frame5.php?play=381532387">Episode 178 серия</option>
+<option value="https://animevost.org/frame5.php?play=459259885">Episode 179 серия</option>
+<option value="https://animevost.org/frame5.php?play=620677123">Episode 180 серия</option>
+<option value="https://animevost.org/frame5.php?play=686700742">Episode 181 серия</option>
+<option value="https://animevost.org/frame5.php?play=958531295">Episode 182 серия</option>
+<option value="https://animevost.org/frame5.php?play=1915555375">Episode 183 серия</option>
+<option value="https://animevost.org/frame5.php?play=1573647347">Episode 184 серия</option>
+<option value="https://animevost.org/frame5.php?play=1687760499">Episode 185 серия</option>
+<option value="https://animevost.org/frame5.php?play=831520822">Episode 186 серия</option>
+<option value="https://animevost.org/frame5.php?play=339389576">Episode 187 серия</option>
+<option value="https://animevost.org/frame5.php?play=731526771">Episode 188 серия</option>
+<option value="https://animevost.org/frame5.php?play=601247131">Episode 189 серия</option>
+<option value="https://animevost.org/frame5.php?play=1340102490">Episode 190 серия</option>
+<option value="https://animevost.org/frame5.php?play=1715179812">Episode 191 серия</option>
+<option value="https://animevost.org/frame5.php?play=775685484">Episode 192 серия</option>
+<option value="https://animevost.org/frame5.php?play=224880586">Episode 193 серия</option>
+<option value="https://animevost.org/frame5.php?play=2124582673">Episode 194 серия</option>
+<option value="https://animevost.org/frame5.php?play=1453433884">Episode 195 серия</option>
+<option value="https://animevost.org/frame5.php?play=626646490">Episode 196 серия</option>
+<option value="https://animevost.org/frame5.php?play=1534301092">Episode 197-198 серия</option>
+<option value="https://animevost.org/frame5.php?play=985397674">Episode 199 серия</option>
+<option value="https://animevost.org/frame5.php?play=645146518">Episode 200 серия</option>
+<option value="https://animevost.org/frame5.php?play=143222221">Episode 201 серия</option>
+<option value="https://animevost.org/frame5.php?play=514666298">Episode 202 серия</option>
+<option value="https://animevost.org/frame5.php?play=609976061">Episode 203 серия</option>
+<option value="https://animevost.org/frame5.php?play=1964958007">Episode 204 серия</option>
+<option value="https://animevost.org/frame5.php?play=1881450852">Episode 205 серия</option>
+<option value="https://animevost.org/frame5.php?play=613027507">Episode 206 серия</option>
+<option value="https://animevost.org/frame5.php?play=450251668">Episode 207 серия</option>
+<option value="https://animevost.org/frame5.php?play=775785871">Episode 208 серия</option>
+<option value="https://animevost.org/frame5.php?play=415265672">Episode 209 серия</option>
+<option value="https://animevost.org/frame5.php?play=1372656317">Episode 210 серия</option>
+<option value="https://animevost.org/frame5.php?play=507097723">Episode 211 серия</option>
+<option value="https://animevost.org/frame5.php?play=1699291479">Episode 212 серия</option>
+<option value="https://animevost.org/frame5.php?play=1681756475">Episode 213 серия</option>
+<option value="https://animevost.org/frame5.php?play=1065303354">Episode 214 серия</option>
+<option value="https://animevost.org/frame5.php?play=1553087093">Episode 215 серия</option>
+<option value="https://animevost.org/frame5.php?play=789669531">Episode 216 серия</option>
+<option value="https://animevost.org/frame5.php?play=2025129905">Episode 217 серия</option>
+<option value="https://animevost.org/frame5.php?play=1268982212">Episode 218 серия</option>
+<option value="https://animevost.org/frame5.php?play=408748345">Episode 219 серия</option>
+<option value="https://animevost.org/frame5.php?play=1838412289">Episode 220 серия</option>
+<option value="https://animevost.org/frame5.php?play=866626452">Episode 221 серия</option>
+<option value="https://animevost.org/frame5.php?play=1641440662">Episode 222 серия</option>
+<option value="https://animevost.org/frame5.php?play=404724406">Episode 223 серия</option>
+<option value="https://animevost.org/frame5.php?play=1467501256">Episode 224 серия</option>
+<option value="https://animevost.org/frame5.php?play=105681319">Episode 225 серия</option>
+<option value="https://animevost.org/frame5.php?play=319572059">Episode 226 серия</option>
+<option value="https://animevost.org/frame5.php?play=1428311316">Episode 227 серия</option>
+<option value="https://animevost.org/frame5.php?play=1049764397">Episode 228 серия</option>
+<option value="https://animevost.org/frame5.php?play=714846799">Episode 229 серия</option>
+<option value="https://animevost.org/frame5.php?play=1188088597">Episode 230 серия</option>
+<option value="https://animevost.org/frame5.php?play=981912058">Episode 231 серия</option>
+<option value="https://animevost.org/frame5.php?play=1296429865">Episode 232 серия</option>
+<option value="https://animevost.org/frame5.php?play=1713350995">Episode 233 серия</option>
+<option value="https://animevost.org/frame5.php?play=1681137382">Episode 234 серия</option>
+<option value="https://animevost.org/frame5.php?play=937797246">Episode 235 серия</option>
+<option value="https://animevost.org/frame5.php?play=1463434523">Episode 236 серия</option>
+<option value="https://animevost.org/frame5.php?play=218660225">Episode 237 серия</option>
+<option value="https://animevost.org/frame5.php?play=464318363">Episode 238 серия</option>
+<option value="https://animevost.org/frame5.php?play=872615418">Episode 239 серия</option>
+<option value="https://animevost.org/frame5.php?play=1668868632">Episode 240 серия</option>
+<option value="https://animevost.org/frame5.php?play=140991408">Episode 241 серия</option>
+<option value="https://animevost.org/frame5.php?play=1358328230">Episode 242 серия</option>
+<option value="https://animevost.org/frame5.php?play=723594647">Episode 243 серия</option>
+<option value="https://animevost.org/frame5.php?play=1754279981">Episode 244 серия</option>
+<option value="https://animevost.org/frame5.php?play=402810091">Episode 245 серия</option>
+<option value="https://animevost.org/frame5.php?play=452328119">Episode 246 серия</option>
+<option value="https://animevost.org/frame5.php?play=684525196">Episode 247 серия</option>
+<option value="https://animevost.org/frame5.php?play=2031694293">Episode 248 серия</option>
+<option value="https://animevost.org/frame5.php?play=1722763871">Episode 249 серия</option>
+<option value="https://animevost.org/frame5.php?play=1021016787">Episode 250 серия</option>
+<option value="https://animevost.org/frame5.php?play=1905972857">Episode 251 серия</option>
+<option value="https://animevost.org/frame5.php?play=1455961983">Episode 252 серия</option>
+<option value="https://animevost.org/frame5.php?play=193027819">Episode 253 серия</option>
+<option value="https://animevost.org/frame5.php?play=559614485">Episode 254 серия</option>
+<option value="https://animevost.org/frame5.php?play=72568209">Episode 255 серия</option>
+<option value="https://animevost.org/frame5.php?play=685989613">Episode 256 серия</option>
+<option value="https://animevost.org/frame5.php?play=523773152">Episode 257 серия</option>
+<option value="https://animevost.org/frame5.php?play=383693028">Episode 258 серия</option>
+<option value="https://animevost.org/frame5.php?play=1429198555">Episode 259 серия</option>
+<option value="https://animevost.org/frame5.php?play=493971188">Episode 260 серия</option>
+<option value="https://animevost.org/frame5.php?play=1705811822">Episode 261 серия</option>
+<option value="https://animevost.org/frame5.php?play=122254589">Episode 262 серия</option>
+<option value="https://animevost.org/frame5.php?play=1269149944">Episode 263 серия</option>
+<option value="https://animevost.org/frame5.php?play=1377412754">Episode 264 серия</option>
+<option value="https://animevost.org/frame5.php?play=1516073731">Episode 265 серия</option>
+<option value="https://animevost.org/frame5.php?play=119035885">Episode 266 серия</option>
+<option value="https://animevost.org/frame5.php?play=578903068">Episode 267 серия</option>
+<option value="https://animevost.org/frame5.php?play=310699168">Episode 268 серия</option>
+<option value="https://animevost.org/frame5.php?play=840215180">Episode 269 серия</option>
+<option value="https://animevost.org/frame5.php?play=961504530">Episode 270 серия</option>
+<option value="https://animevost.org/frame5.php?play=2066603296">Episode 271 серия</option>
+<option value="https://animevost.org/frame5.php?play=1099066243">Episode 272 серия</option>
+<option value="https://animevost.org/frame5.php?play=1604292556">Episode 273 серия</option>
+<option value="https://animevost.org/frame5.php?play=1889445150">Episode 274 серия</option>
+<option value="https://animevost.org/frame5.php?play=1993404627">Episode 275 серия</option>
+<option value="https://animevost.org/frame5.php?play=1620981753">Episode 276 серия</option>
+<option value="https://animevost.org/frame5.php?play=77580155">Episode 277 серия</option>
+<option value="https://animevost.org/frame5.php?play=1583891185">Episode 278 серия</option>
+<option value="https://animevost.org/frame5.php?play=1851862554">Episode 279 серия</option>
+<option value="https://animevost.org/frame5.php?play=2105177093">Episode 280 серия</option>
+<option value="https://animevost.org/frame5.php?play=455152269">Episode 281 серия</option>
+<option value="https://animevost.org/frame5.php?play=1188360175">Episode 282 серия</option>
+<option value="https://animevost.org/frame5.php?play=932936697">Episode 283 серия</option>
+<option value="https://animevost.org/frame5.php?play=1873930864">Episode 284 серия</option>
+<option value="https://animevost.org/frame5.php?play=1018554964">Episode 285 серия</option>
+<option value="https://animevost.org/frame5.php?play=1833802420">Episode 286 серия</option>
+<option value="https://animevost.org/frame5.php?play=1022471926">Episode 287 серия</option>
+<option value="https://animevost.org/frame5.php?play=1676894198">Episode 288 серия</option>
+<option value="https://animevost.org/frame5.php?play=369726906">Episode 289 серия</option>
+<option value="https://animevost.org/frame5.php?play=216322783">Episode 290 серия</option>
+<option value="https://animevost.org/frame5.php?play=1353789674">Episode 291 серия</option>
+<option value="https://animevost.org/frame5.php?play=803883111">Episode 292 серия</option>
+<option value="https://animevost.org/frame5.php?play=1783538263">Episode 293 серия</option>
+<option value="https://animevost.org/frame5.php?play=129793793">Episode 294 серия</option>
+<option value="https://animevost.org/frame5.php?play=1884018339">Episode 295 серия</option>
+<option value="https://animevost.org/frame5.php?play=1756157961">Episode 296 серия</option>
+<option value="https://animevost.org/frame5.php?play=1097382867">Episode 297 серия</option>
+<option value="https://animevost.org/frame5.php?play=70451953">Episode 298 серия</option>
+<option value="https://animevost.org/frame5.php?play=1071685412">Episode 299 серия</option>
+<option value="https://animevost.org/frame5.php?play=1136795756">Episode 300 серия</option>
+<option value="https://animevost.org/frame5.php?play=41232198">Episode 301 серия</option>
+<option value="https://animevost.org/frame5.php?play=1735680408">Episode 302 серия</option>
+<option value="https://animevost.org/frame5.php?play=166720524">Episode 303 серия</option>
+<option value="https://animevost.org/frame5.php?play=1723114368">Episode 304 серия</option>
+<option value="https://animevost.org/frame5.php?play=1825020240">Episode 305 серия</option>
+<option value="https://animevost.org/frame5.php?play=886473054">Episode 306 серия</option>
+<option value="https://animevost.org/frame5.php?play=2015807094">Episode 307 серия</option>
+<option value="https://animevost.org/frame5.php?play=828020646">Episode 308 серия</option>
+<option value="https://animevost.org/frame5.php?play=66608818">Episode 309 серия</option>
+<option value="https://animevost.org/frame5.php?play=1696870746">Episode 310 серия</option>
+<option value="https://animevost.org/frame5.php?play=1879221170">Episode 311 серия</option>
+<option value="https://animevost.org/frame5.php?play=772338891">Episode 312 серия</option>
+<option value="https://animevost.org/frame5.php?play=1705530481">Episode 313 серия</option>
+<option value="https://animevost.org/frame5.php?play=2041132337">Episode 314 серия</option>
+<option value="https://animevost.org/frame5.php?play=196354960">Episode 315 серия</option>
+<option value="https://animevost.org/frame5.php?play=784739728">Episode 316 серия</option>
+<option value="https://animevost.org/frame5.php?play=1018915096">Episode 317 серия</option>
+<option value="https://animevost.org/frame5.php?play=571535839">Episode 318 серия</option>
+<option value="https://animevost.org/frame5.php?play=1025068007">Episode 319 серия</option>
+<option value="https://animevost.org/frame5.php?play=588843701">Episode 320 серия</option>
+<option value="https://animevost.org/frame5.php?play=1232494657">Episode 321 серия</option>
+<option value="https://animevost.org/frame5.php?play=571123004">Episode 322 серия</option>
+<option value="https://animevost.org/frame5.php?play=1960939448">Episode 323 серия</option>
+<option value="https://animevost.org/frame5.php?play=171448377">Episode 324 серия</option>
+<option value="https://animevost.org/frame5.php?play=1316738091">Episode 325 серия</option>
+<option value="https://animevost.org/frame5.php?play=876931778">Episode 326 серия</option>
+<option value="https://animevost.org/frame5.php?play=1780030537">Episode 327 серия</option>
+<option value="https://animevost.org/frame5.php?play=1664473604">Episode 328 серия</option>
+<option value="https://animevost.org/frame5.php?play=1341107993">Episode 329 серия</option>
+<option value="https://animevost.org/frame5.php?play=25899311">Episode 330 серия</option>
+<option value="https://animevost.org/frame5.php?play=1605832310">Episode 331 серия</option>
+<option value="https://animevost.org/frame5.php?play=25371789">Episode 332 серия</option>
+<option value="https://animevost.org/frame5.php?play=936104133">Episode 333 серия</option>
+<option value="https://animevost.org/frame5.php?play=975752063">Episode 334 серия</option>
+<option value="https://animevost.org/frame5.php?play=1735084417">Episode 335 серия</option>
+<option value="https://animevost.org/frame5.php?play=324836233">Episode 336 серия</option>
+<option value="https://animevost.org/frame5.php?play=1120438733">Episode 337 серия</option>
+<option value="https://animevost.org/frame5.php?play=118362639">Episode 338 серия</option>
+<option value="https://animevost.org/frame5.php?play=2077423308">Episode 339 серия</option>
+<option value="https://animevost.org/frame5.php?play=1081104563">Episode 340 серия</option>
+<option value="https://animevost.org/frame5.php?play=255693598">Episode 341 серия</option>
+<option value="https://animevost.org/frame5.php?play=1483597126">Episode 342 серия</option>
+<option value="https://animevost.org/frame5.php?play=1295770996">Episode 343 серия</option>
+<option value="https://animevost.org/frame5.php?play=810880772">Episode 344 серия</option>
+<option value="https://animevost.org/frame5.php?play=970575178">Episode 345 серия</option>
+<option value="https://animevost.org/frame5.php?play=608946434">Episode 346 серия</option>
+<option value="https://animevost.org/frame5.php?play=1714529688">Episode 347 серия</option>
+<option value="https://animevost.org/frame5.php?play=1188070218">Episode 348 серия</option>
+<option value="https://animevost.org/frame5.php?play=1791054468">Episode 349 серия</option>
+<option value="https://animevost.org/frame5.php?play=834588292">Episode 350 серия</option>
+<option value="https://animevost.org/frame5.php?play=858053122">Episode 351 серия</option>
+<option value="https://animevost.org/frame5.php?play=1014247885">Episode 352 серия</option>
+<option value="https://animevost.org/frame5.php?play=1796854975">Episode 353 серия</option>
+<option value="https://animevost.org/frame5.php?play=2127441145">Episode 354 серия</option>
+<option value="https://animevost.org/frame5.php?play=661136492">Episode 355 серия</option>
+<option value="https://animevost.org/frame5.php?play=1338443330">Episode 356 серия</option>
+<option value="https://animevost.org/frame5.php?play=1778508717">Episode 357 серия</option>
+<option value="https://animevost.org/frame5.php?play=1528497931">Episode 358 серия</option>
+<option value="https://animevost.org/frame5.php?play=973824012">Episode 359 серия</option>
+<option value="https://animevost.org/frame5.php?play=1551720592">Episode 360 серия</option>
+<option value="https://animevost.org/frame5.php?play=1785006758">Episode 361 серия</option>
+<option value="https://animevost.org/frame5.php?play=1015663308">Episode 362 серия</option>
+<option value="https://animevost.org/frame5.php?play=1984735769">Episode 363 серия</option>
+<option value="https://animevost.org/frame5.php?play=34400483">Episode 364 серия</option>
+<option value="https://animevost.org/frame5.php?play=690569525">Episode 365 серия</option>
+<option value="https://animevost.org/frame5.php?play=833624718">Episode 366 серия</option>
+<option value="https://animevost.org/frame5.php?play=932772520">Episode 367 серия</option>
+<option value="https://animevost.org/frame5.php?play=1154462453">Episode 368 серия</option>
+<option value="https://animevost.org/frame5.php?play=1122398176">Episode 369 серия</option>
+<option value="https://animevost.org/frame5.php?play=1113283320">Episode 370 серия</option>
+<option value="https://animevost.org/frame5.php?play=2083453169">Episode 371 серия</option>
+<option value="https://animevost.org/frame5.php?play=2080905002">Episode 372 серия</option>
+<option value="https://animevost.org/frame5.php?play=7566786">Episode 373 серия</option>
+<option value="https://animevost.org/frame5.php?play=1449121589">Episode 374 серия</option>
+<option value="https://animevost.org/frame5.php?play=599560031">Episode 375 серия</option>
+<option value="https://animevost.org/frame5.php?play=546243117">Episode 376 серия</option>
+<option value="https://animevost.org/frame5.php?play=955442674">Episode 377 серия</option>
+<option value="https://animevost.org/frame5.php?play=1763480619">Episode 378 серия</option>
+<option value="https://animevost.org/frame5.php?play=556665695">Episode 379 серия</option>
+<option value="https://animevost.org/frame5.php?play=644581343">Episode 380 серия</option>
+<option value="https://animevost.org/frame5.php?play=1757201453">Episode 381 серия</option>
+<option value="https://animevost.org/frame5.php?play=592672697">Episode 382 серия</option>
+<option value="https://animevost.org/frame5.php?play=690305978">Episode 383 серия</option>
+<option value="https://animevost.org/frame5.php?play=532660764">Episode 384 серия</option>
+<option value="https://animevost.org/frame5.php?play=1010143370">Episode 385 серия</option>
+<option value="https://animevost.org/frame5.php?play=396521232">Episode 386 серия</option>
+<option value="https://animevost.org/frame5.php?play=1023368269">Episode 387 серия</option>
+<option value="https://animevost.org/frame5.php?play=1982890736">Episode 388 серия</option>
+<option value="https://animevost.org/frame5.php?play=581350820">Episode 389 серия</option>
+<option value="https://animevost.org/frame5.php?play=695285651">Episode 390 серия</option>
+<option value="https://animevost.org/frame5.php?play=1375297761">Episode 391 серия</option>
+<option value="https://animevost.org/frame5.php?play=629801962">Episode 392 серия</option>
+<option value="https://animevost.org/frame5.php?play=1101919597">Episode 393 серия</option>
+<option value="https://animevost.org/frame5.php?play=832230881">Episode 394 серия</option>
+<option value="https://animevost.org/frame5.php?play=842751548">Episode 395 серия</option>
+<option value="https://animevost.org/frame5.php?play=445498534">Episode 396 серия</option>
+<option value="https://animevost.org/frame5.php?play=1651368557">Episode 397 серия</option>
+<option value="https://animevost.org/frame5.php?play=1250144101">Episode 398 серия</option>
+<option value="https://animevost.org/frame5.php?play=1437502607">Episode 399 серия</option>
+<option value="https://animevost.org/frame5.php?play=862232477">Episode 400 серия</option>
+<option value="https://animevost.org/frame5.php?play=139741211">Episode 401 серия</option>
+<option value="https://animevost.org/frame5.php?play=1285810335">Episode 402 серия</option>
+<option value="https://animevost.org/frame5.php?play=917015742">Episode 403 серия</option>
+<option value="https://animevost.org/frame5.php?play=1681150781">Episode 404 серия</option>
+<option value="https://animevost.org/frame5.php?play=1410997794">Episode 405 серия</option>
+<option value="https://animevost.org/frame5.php?play=1994862794">Episode 406 серия</option>
+<option value="https://animevost.org/frame5.php?play=1113578444">Episode 407 серия</option>
+<option value="https://animevost.org/frame5.php?play=1257753442">Episode 408 серия</option>
+<option value="https://animevost.org/frame5.php?play=2095908372">Episode 409 серия</option>
+<option value="https://animevost.org/frame5.php?play=255410992">Episode 410 серия</option>
+<option value="https://animevost.org/frame5.php?play=1911982375">Episode 411 серия</option>
+<option value="https://animevost.org/frame5.php?play=2055749513">Episode 412 серия</option>
+<option value="https://animevost.org/frame5.php?play=1919489589">Episode 413 серия</option>
+<option value="https://animevost.org/frame5.php?play=1777273818">Episode 414 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147383594">Episode 415 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147384006">Episode 416 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147392168">Episode 417 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147392782">Episode 418 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147392935">Episode 419 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147393205">Episode 420 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147393304">Episode 421 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147393551">Episode 422 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147393552">Episode 423 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147393725">Episode 424 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147394009">Episode 425 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147394281">Episode 426 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147394544">Episode 427 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147394545">Episode 428 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147394912">Episode 429 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147395233">Episode 430 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147395566">Episode 431 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147395857">Episode 432 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147396222">Episode 433 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147396422">Episode 434 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147396688">Episode 435 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147397431">Episode 436 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147397689">Episode 437 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147398072">Episode 438 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147398351">Episode 439 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147398714">Episode 440 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147398960">Episode 441 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147399048">Episode 442 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147399279">Episode 443 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147399837">Episode 444 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147399916">Episode 445 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147399986">Episode 446 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147400179">Episode 447 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147400492">Episode 448 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147400975">Episode 449 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401137">Episode 450 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401209">Episode 451 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401273">Episode 452 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401364">Episode 453 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401431">Episode 454 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401555">Episode 455 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401610">Episode 456 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401662">Episode 457 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401719">Episode 458 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401775">Episode 459 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401829">Episode 460 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401880">Episode 461 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401936">Episode 462 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147401986">Episode 463 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402050">Episode 464 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402111">Episode 465 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402234">Episode 466 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402303">Episode 467 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402428">Episode 468 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402488">Episode 469 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402553">Episode 470 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402619">Episode 471 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402673">Episode 472 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402737">Episode 473 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402796">Episode 474 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147402863">Episode 475 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403052">Episode 476 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403053">Episode 477 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403102">Episode 478 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403166">Episode 479 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403238">Episode 480 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403319">Episode 481 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403385">Episode 482 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403449">Episode 483 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403727">Episode 484 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403811">Episode 485 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403884">Episode 486 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147403974">Episode 487 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404118">Episode 488 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404202">Episode 489 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404276">Episode 490 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404345">Episode 491 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404412">Episode 492 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404489">Episode 493 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404547">Episode 494 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404548">Episode 495 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404608">Episode 496 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404673">Episode 497 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404737">Episode 498 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404790">Episode 499 серия</option>
+<option value="https://animevost.org/frame5.php?play=2147404844">Episode 500 серия</option>
+<!-- Ajoutez dautres épisodes ici -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "Naruto Shippuuden"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            function changerEpisode(url) {
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = url;
+                highlightActiveEpisodeButton(url);
+            }
+
+            function highlightActiveEpisodeButton(url) {
+                var allEpisodeButtons = document.querySelectorAll('.episode-list button');
+                allEpisodeButtons.forEach(function (button) {
+                    button.classList.remove('active-episode');
+                });
+
+                var matchingButton = document.querySelector('.episode-list button[onclick="chargerVideo(\'' + url + '\')"]');
+                if (matchingButton) {
+                    matchingButton.classList.add('active-episode');
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var activeEpisode = localStorage.getItem('Naruto Shippuuden_activeEpisode');
+                if (activeEpisode) {
+                    changerEpisode(activeEpisode);
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

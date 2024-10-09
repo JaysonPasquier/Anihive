@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shinobi no ittoki - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://animemovil2.com/media/portadas/3732.webp');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://animemovil2.com/media/portadas/3732.webp');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+            top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://animemovil2.com/media/portadas/3732.webp');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">shinobi no ittoki - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select id="episode-select" onchange="changerEpisode()">
+                        <option value="none">-- Choose an Episode --</option>
+                        <!-- Les options pour les épisodes seront ajoutées ici via JavaScript -->
+                    </select>
+                    <select id="server-select" onchange="changerServeur()">
+                        <option value="none">-- Choose a Server --</option>
+                        <!-- Les options pour les serveurs seront ajoutées ici via JavaScript -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "shinobi no ittoki"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            var episodes = {
+                //Ajoutez dautres épisodes et serveurs ici
+        "Episode 1": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=shin-01/SHIN-01", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/xp5l5h5gj5m1w4e", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=xp5l5h5gj5m1w4e", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/VdRZJgvko9cK7Pe/SHIN-01.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sblanh.com/e/jli9kfa6msh0.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamlare.com/e/ARPonQ3ER0Qzb1aE", server: "StreamLare" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/4wqath728obe", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/block.php?id=https://uqload.com/embed-vqcb28l54a03.html", server: "Uqload" },
+            { url: "https://mega.nz/embed#!AfsxzLBL!L_fpgBhxtvPsTm2ZHTr3SXDekOYSBnaAqWIfgoo4lnE", server: "Mega" }
+        ],
+        "Episode 2": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ittoki-02/ITTOKI-02", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/kx-5-a3pxx73qyw", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=kx-5-a3pxx73qyw", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/MxBdDXWMRAi6Gr/ITTOKI-02.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sbanh.com/e/2odnqwois710.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamlare.com/e/r8WdlWmYd1KDjx4q", server: "StreamLare" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/zcwocnwdpd58", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/block.php?id=https://uqload.com/embed-rgnr94a7wx2y.html", server: "Uqload" },
+            { url: "https://mega.nz/embed#!zYhHQBrY!fSk3hJ606AjEYfkYM4uePWOp-aaR6TYM57te0BSlq2c", server: "Mega" }
+        ],
+        "Episode 3": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-03/NINJA-03", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/5kjrjcd35nzqlwy", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=5kjrjcd35nzqlwy", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/BOw0ZpOQqMCm9X/NINJA-03.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sbanh.com/e/p3c6fuk27i3e.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/j8vb4cfz3q7q", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamlare.com/e/vjPWlqRNGJvn34JK", server: "StreamLare" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/block.php?id=https://uqload.com/embed-my8vdr5irq6c.html", server: "Uqload" },
+            { url: "https://mega.nz/embed#!DkRRzbIB!tfzGtdmEZfNVpLTTme5VUD3J97GzDkPOn4XTLbzYDbE", server: "Mega" }
+        ],
+        "Episode 4": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/q3x5xferpqn0x4n", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=q3x5xferpqn0x4n", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/ZXj3qr1JeOsq1OG/NINJA-04.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sbanh.com/e/4507g3ph8yun.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/1qtyo4292q9c", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamlare.com/e/8K02DPkxAQXnygB1", server: "StreamLare" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.burstcloud.co/embed/3fdc13051e602c0371b1cab129c8ee0e75a9667ab99f0b702c28795627ac5909/NINJA-04.mp4", server: "BurstCloud" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-n1kig8q0btrp.html", server: "Mp4Upload" }
+        ],
+        "Episode 5": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-05/NINJA-05", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/LDXgM9xJ30Fvwp/NINJA-05.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sbanh.com/e/y79djt6o0ar7.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/0dj4jslr5x87lnp", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=0dj4jslr5x87lnp", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/okkrn4poa70y", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamlare.com/e/vb6NnJyxLYZlPOkZ", server: "StreamLare" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.burstcloud.co/embed/33ad9bddabb7667de0e495bd6686281effc6b4d183396230533d2ab2d6093024/NINJA-05.mp4", server: "BurstCloud" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-zxyw5i4k296l.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-zhzq0cea13ax.html", server: "Mp4Upload" },
+            { url: "https://mega.nz/embed#!VG0jxBYS!lw8iRkTiveqyL3t68iskkOu8Zyim-Ckya0fF3AnFUB8", server: "Mega" }
+        ],
+        "Episode 6": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://test.ironhentai.com/mp4/embed.php?data=q96F7jdq2QFdRiT+YaaFCmyZHvGWGPZsuDHsr//NMzo4+Ic8olol2xZ1bPZNN0p74US32r9feY6TpgUo0JMSwr9IdefXDGDRBeHptVoUGML729lFcvAlmnJ+czOhSGhPv4tp", server: "VIP" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-06/NINJA-06", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/2B0D3KGJMVsZ09w/NINJA-06.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sbanh.com/e/qm1ix7emf4nn.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/kx-5-a37-knw5j4", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=kx-5-a37-knw5j4", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamlare.com/e/GWaolEGAejpDdPVQ", server: "StreamLare" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-z8eb506e3vc2.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-cbp6amy98g48.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/p8nufo0sg8vm", server: "Voex" },
+            { url: "https://mega.nz/embed#!kb9hkY6I!gkDOEDP8S3inoEoUdYxiPRewzSZEl1r7sfqasphKT-0", server: "Mega" }
+        ],
+        "Episode 7": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-07/NINJA-07", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/P9xlWD2Og1s0q14/NINJA-07.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/q3x5xfer6y0n48e", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=q3x5xfer6y0n48e", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sblongvu.com/e/jh2gdhhbrfda.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamlare.com/e/Gm80z552vKdzr1xW", server: "StreamLare" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-zqfxf754lgv3.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-mfaoyc4qecj9.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/dclzb30xbldh", server: "Voex" },
+            { url: "https://mega.nz/embed#!IacXHRLB!ERT8deLN24SXqy4J4o540TiSBxdb1-V5jZSzxpvH-As", server: "Mega" }
+        ],
+        "Episode 8": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-08/NINJA-08", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/3PLz84eMMlhrwg/NINJA-08.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/pwxjxtmz7p1rpyn", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=pwxjxtmz7p1rpyn", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sblongvu.com/e/hystfxsiqc0l.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-ribgv3u4kjy1.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-rlho76qiake8.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/4hyk6bzuo3s9", server: "Voex" },
+            { url: "https://mega.nz/embed#!wS9RhLZT!Y7PUqogo4caANcskzcN4wnrADk0-soV_hzlXzC4A_44", server: "Mega" }
+        ],
+        "Episode 9": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-09/NINJA-09", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/ZV1y1LVxePcBjP/NINJA-09.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/42j0jtz1n4e42er", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=42j0jtz1n4e42er", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sblongvu.com/e/wii45fi09xcp.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-01g5glt8d411.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-ho5lwy69woao.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/49910t028m8v", server: "Voex" },
+            { url: "https://mega.nz/embed#!WuoWgQxD!TTD5uo93MxYwt_Tgle0CiPXOpL-FECMD5QHaWzzdL8s", server: "Mega" }
+        ],
+        "Episode 10": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-10/NINJA-10", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/oAJjbxRoWqTJzG3/NINJA-10.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sblongvu.com/e/gy9rwclqhr1x.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/mgn5nb5d-3mzrzw", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=mgn5nb5d-3mzrzw", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-7j3ian2pciae.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-hd4ni3o5trx3.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/p8sndud8h7sk", server: "Voex" },
+            { url: "https://mega.nz/embed#!Hqoi1ToQ!CZplAtaOQx7VMCT0lJWHA47GwL_EGmN_k9C56xtPM7E", server: "Mega" }
+        ],
+        "Episode 11": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-11/NINJA-11", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/MyZXe7Qo47TmaPv/NINJA-11.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sblongvu.com/e/z9srqm42bm2j.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/zk5l5cj043rwx65", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=zk5l5cj043rwx65", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-1b8z6w5w2aam.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-0ggjs64d0fmp.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/vvqvt32mpoog", server: "Voex" },
+            { url: "https://mega.nz/embed#!KBEimCQC!2N0FdnqqRZO6ymS5ceR49JTQcPmauE1zKvbLbagcfss", server: "Mega" }
+        ],
+        "Episode 12": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/plus.php?url=ninja-12/NINJA-12", server: "Plus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/yAl8VA2vX8u1LG7/NINJA-12.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/v/r4xwxte5ngw-nzz", server: "Fembeb" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?url=r4xwxte5ngw-nzz", server: "PlayPlus" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://sblongvu.com/e/48zgp5ppcb5e.html", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-b9x372m4yf37.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-yj3s0n2xg13l.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/q0ywu8t86f2r", server: "Voex" },
+            { url: "https://mega.nz/embed#!mFMn1L5D!qejrr0qFP7vwY71pajS5orHL7FW2nNuM6m_g1kM6ikg", server: "Mega" }
+        ],
+            };
+
+            function populateEpisodes() {
+                var episodeSelect = document.getElementById('episode-select');
+                for (var episode in episodes) {
+                    var option = document.createElement('option');
+                    option.value = episode;
+                    option.textContent = episode;
+                    episodeSelect.appendChild(option);
+                }
+            }
+
+            function populateServers(episode) {
+                var serverSelect = document.getElementById('server-select');
+                serverSelect.innerHTML = '<option value="none">-- Choose a Server --</option>'; // Clear existing options
+                if (episodes[episode]) {
+                    episodes[episode].forEach(function (episodeData) {
+                        var option = document.createElement('option');
+                        option.value = episodeData.url;
+                        option.textContent = episodeData.server;
+                        serverSelect.appendChild(option);
+                    });
+                }
+            }
+
+            function changerEpisode() {
+                var episodeSelect = document.getElementById('episode-select');
+                var selectedEpisode = episodeSelect.value;
+                populateServers(selectedEpisode);
+                changerServeur();
+            }
+
+            function changerServeur() {
+                var serverSelect = document.getElementById('server-select');
+                var selectedUrl = serverSelect.value;
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = selectedUrl;
+                localStorage.setItem('shinobi no ittoki_activeEpisode', selectedUrl);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                populateEpisodes();
+                var activeEpisode = localStorage.getItem('shinobi no ittoki_activeEpisode');
+                if (activeEpisode) {
+                    document.getElementById('episode-select').value = Object.keys(episodes).find(function (episode) {
+                        return episodes[episode].some(function (server) {
+                            return server.url === activeEpisode;
+                        });
+                    });
+                    changerEpisode();
+                    document.getElementById('server-select').value = activeEpisode;
+                    changerServeur();
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

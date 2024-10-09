@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dark gathering - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://animemovil2.com/media/portadas/3982.webp');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://animemovil2.com/media/portadas/3982.webp');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+            top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://animemovil2.com/media/portadas/3982.webp');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">dark gathering - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select id="episode-select" onchange="changerEpisode()">
+                        <option value="none">-- Choose an Episode --</option>
+                        <!-- Les options pour les épisodes seront ajoutées ici via JavaScript -->
+                    </select>
+                    <select id="server-select" onchange="changerServeur()">
+                        <option value="none">-- Choose a Server --</option>
+                        <!-- Les options pour les serveurs seront ajoutées ici via JavaScript -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "dark gathering"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            var episodes = {
+                //Ajoutez dautres épisodes et serveurs ici
+        "Episode 1": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=2x8jdx9w1bez", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=EeoUdVfjq_qqkg", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=8rfxendqa", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/stream.php?url=xcrvl97ou8b6", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/3D1R9Alkg0udqQ6/1Dark.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/MEtpdUpsUndZTER5WHc1aVJuZm5CQT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ahvsh.com/e/a46o54soca15", server: "StreamHide" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.co/embed-jaxsduo7uzdx.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-rvhpa0rx1v07.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/mowzhbg6xzub", server: "Voex" }
+        ],
+        "Episode 2": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=xc2z1j334b16", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=3PQRNhqoEV0eCA", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=jmsytykdk", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/stream.php?url=x9v4ihveffli", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/ZyxkRMvBpxuRM6/2Darkga.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/bXZ5YTJxeXdaY3dOTmRZSzIzQTkrdz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ahvsh.com/e/e6bnkdru6ptk", server: "StreamHide" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.co/embed-pmco9l19e86m.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-opzs53apovjv.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/l31wmhrwzrvo", server: "Voex" },
+            { url: "https://mega.nz/embed#!0qtDXRYZ!OwoyR0XMmDRc8Ym4Y1bdjY-bREdZ8n2LcDP6JUfiwns", server: "Mega" }
+        ],
+        "Episode 3": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=t09eo5dudltk", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=pRTUXSqKqjnS9Q", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=8ehq6qtrj", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/GJM7a7rOMqc1RO3/3Darkgatherin.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/TWZQdXJneHRYSFpBWUpVVG9XQUlnUT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.co/embed-m7xsku0xwez7.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-auj5e3woedd9.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamwish.to/e/ikummq8uw9xy", server: "StreamWish" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamhub.gg/e/z54oklu5lqc4", server: "StreamHub" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/bvjgxtjporau", server: "Voex" },
+            { url: "https://mega.nz/embed#!5qMkCLpC!yyYfVq38bGSoF7mZYJb-qjRD7-S5eGKu0p2YqOPfaHw", server: "Mega" }
+        ],
+        "Episode 4": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=h9pkx81sn1m8", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=tMBk9H5s3i0zpw", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=3kgk5yday", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/GpGdmrjW1bt1gO9/Gathering-04.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/RS96c3hBcWFqQW9xT2ZTMkRQU0l0QT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.io/embed-23ftkj52vrf2.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-8jeo5s7d9j79.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamwish.to/e/o78njjefcumk", server: "StreamWish" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamhub.gg/e/9uc5ax8gh9sq", server: "StreamHub" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/2hbqwkktdnqt", server: "Voex" }
+        ],
+        "Episode 5": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=yzphv3tla8vf", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=q7zhkmfysyg7", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=t6m0ymjt26kv", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=s80kzk8merd2", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/1aW9b9ybL9Tezdb/dark5.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-k58fljrz9b1h.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/dze0ols4uspv", server: "Voex" }
+        ],
+        "Episode 6": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=o6uthh5ijngb", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=omso3ipvjjba", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=gbi2xlzz9odb", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=2ckj5vxcpq2p", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/yrP9BkPXyWc16ow/6Darkga.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-8v3glx2l33el.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/ctk8cgm6vtaq", server: "Voex" }
+        ],
+        "Episode 7": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=iur8krproiyw", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=o6l3lh7e34gw", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=sq3ya8eq8yup", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=hi69c92ge3jk", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/p7qObXvKYOHrMye/7Darkga.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-djznccee9rix.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/spvuremjixzk", server: "Voex" }
+        ],
+        "Episode 8": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=00w9rz5ggifw", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=idhnq6gl6t3m", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=sbyf73lwqeuo", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=xslxwmr1705a", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/load.php?id=v3hnjfmrtu8f", server: "PlusDrop" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/oA8rPV1O6pFjMo/DarkGathering8.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-9z3ws92ijc12.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/dndanrggg60m", server: "Voex" }
+        ],
+        "Episode 9": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=mt0n4gls6y9v", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=kbgn4tnpp8ay", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=bcmcq7o82nkz", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=dzdcg07agxw6", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/DWp9DMeoDOiLJr/Dark09.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-9pd77qjfvxpu.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/8d6azoojgiuy", server: "Voex" }
+        ],
+        "Episode 10": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=1ja8t3nrozc2", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=0wy7s7bgmi0y", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=ci6n8c09w9v0", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=4vr3gu18b003", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/x9Dy9OxjzvTvMV/Gathering10.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-tmvbrfoykj10.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/1h0wuquoebtv", server: "Voex" }
+        ],
+        "Episode 11": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=rbj44xzznc93", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=o7d5dui0ek7h", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=vknlrdb2c7a4", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=mc1urz4e2p3t", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/k3DLvjb9qQfe19/Dark-11.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-4z9crfu8dhy3.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/tsoyrmros2ti", server: "Voex" }
+        ],
+        "Episode 12": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=tuc238uvg0dz", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=xqxjb86ql74f", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/one.php?id=EQK-1Mq24HdGtQKqRkTFn9EBYjLJW9NhsXwvnROg9Ercuw", server: "PlusPoint" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=3vf2x5fovmhu", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/share.php?id=26", server: "PlusOne" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/j7kMbOgWp7HzwWZ/12dark.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-7ixg56w88p3k.html", server: "Mp4Upload" }
+        ],
+        "Episode 13": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=ftbpdipu8rt5", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=9ylpxv8rmedh", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=hh8r4dp3eu52", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-9nxwz5mz4224.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/sqbwonqbij6j", server: "Voex" }
+        ],
+        "Episode 14": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=68943n7bfit6", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=pq383apw2vbo", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=26onxac4mumh", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/yxDKvxLK0qF19QD/Dark-14.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-nft22g0uuqoe.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/l2auyxttmkou", server: "Voex" }
+        ],
+        "Episode 15": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=untaru2as9hz", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=4g8hb1owfw0l", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-4tavby0rws9h.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/bvtb23em4nfo", server: "Voex" }
+        ],
+        "Episode 16": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=pjiuxc4exacp", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=6spwem834jrb", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/2kM1wbR2O7hZ0o8/Dark16.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-anyzxed3kyl0.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/mbqbwzeycvqm", server: "Voex" }
+        ],
+        "Episode 17": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=e0ff6nqhmixe", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=xbafpc3avrwk", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=mvs8hr8uhn", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/jlYlbj8krGSz97L/Dark17.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-b8nlw706dsif.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/zeex5tg7obip", server: "Voex" }
+        ],
+        "Episode 18": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=6kgl7a2ca5ka", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=n29tt7jlp3hu", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=xs5vvgnfg5", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-ohap9o9urlni.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/ytnnwuycosvs", server: "Voex" },
+            { url: "https://mega.nz/embed#!LM5yAQbY!VyxxxiwUsfThifKvvS-DGngAqOAdD0HfLsCQOK8pZFY", server: "Mega" }
+        ],
+        "Episode 19": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=q43gvvwkvrkc", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=1z3m5xlgze1g", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=dfun8e6he6", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/ayAWJr1ee7Txrry/19darkv2.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-45001bqsog86.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/ov89lswitoi8", server: "Voex" },
+            { url: "https://mega.nz/embed#!nZAHmTjQ!tkDNALnZo0Ukz9GR8wv9mpga5buD8MAERHqVCjoSNdg", server: "Mega" }
+        ],
+        "Episode 20": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=lab660pk4d2e", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=ilbgywpkkqz7", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=pmfqdrymhr", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/v/q8obZxegQAfz0j8/20darkga.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-6i6uswrp5cre.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/wqrkonskqkfu", server: "Voex" },
+            { url: "https://mega.nz/embed#!nNBUWJoR!74aPLfECbRQi2vGl-82wqLmLaO5nzkKGLH_4aDjRFo0", server: "Mega" }
+        ],
+        "Episode 21": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=j5b0p95zue9i", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=a56uqdvlt3wd", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=y2zfj9h5ke", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-81j7fv3shhxz.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/jzn0xzhfyy6d", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/JkLawbrywPsgw0/Dark21.mp4", server: "StreamTape" }
+        ],
+        "Episode 22": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=zs0wvcai258j", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=04tofjf1zohm", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-omd0evd3kbq1.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/a15jnirwosgg", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/BzL1RqaXbxcyApb/Dark22.mp4", server: "StreamTape" }
+        ],
+        "Episode 23": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=ho9fnj8szzvs", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=2sotvxuiizjc", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=tkdwnatjbg", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-wcwd1wgrulv5.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/lhjnupa6djdp", server: "Voex" },
+            { url: "https://mega.nz/embed#!yIIR0BDB!vyPw6DXzND5C9a76t_ygBlehDFoemwgHfEPVqTChm_A", server: "Mega" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/WbMDd2XPDPHb9y4/23darkga.mp4", server: "StreamTape" }
+        ],
+        "Episode 24": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=f49mikzi1uoa", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=8yc1thwcs6j4", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=mvmdwj64dv", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-jy17i9gleuqb.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/4vp3cjmlzigu", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/ZrvdLDVDYphKaJ/Dark24.mp4", server: "StreamTape" }
+        ],
+        "Episode 25": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=0zlkzihtqyst", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=kvceml26nbsl", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=1fluxmz6hnrw", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=dzmy8dn2a4", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/d7qxYJb4pKI1r9/25darkga.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-qw29rm9k66xv.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/2jdnwq3ykxmd", server: "Voex" }
+        ],
+            };
+
+            function populateEpisodes() {
+                var episodeSelect = document.getElementById('episode-select');
+                for (var episode in episodes) {
+                    var option = document.createElement('option');
+                    option.value = episode;
+                    option.textContent = episode;
+                    episodeSelect.appendChild(option);
+                }
+            }
+
+            function populateServers(episode) {
+                var serverSelect = document.getElementById('server-select');
+                serverSelect.innerHTML = '<option value="none">-- Choose a Server --</option>'; // Clear existing options
+                if (episodes[episode]) {
+                    episodes[episode].forEach(function (episodeData) {
+                        var option = document.createElement('option');
+                        option.value = episodeData.url;
+                        option.textContent = episodeData.server;
+                        serverSelect.appendChild(option);
+                    });
+                }
+            }
+
+            function changerEpisode() {
+                var episodeSelect = document.getElementById('episode-select');
+                var selectedEpisode = episodeSelect.value;
+                populateServers(selectedEpisode);
+                changerServeur();
+            }
+
+            function changerServeur() {
+                var serverSelect = document.getElementById('server-select');
+                var selectedUrl = serverSelect.value;
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = selectedUrl;
+                localStorage.setItem('dark gathering_activeEpisode', selectedUrl);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                populateEpisodes();
+                var activeEpisode = localStorage.getItem('dark gathering_activeEpisode');
+                if (activeEpisode) {
+                    document.getElementById('episode-select').value = Object.keys(episodes).find(function (episode) {
+                        return episodes[episode].some(function (server) {
+                            return server.url === activeEpisode;
+                        });
+                    });
+                    changerEpisode();
+                    document.getElementById('server-select').value = activeEpisode;
+                    changerServeur();
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

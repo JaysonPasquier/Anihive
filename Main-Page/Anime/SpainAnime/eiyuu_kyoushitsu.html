@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eiyuu kyoushitsu - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://animemovil2.com/media/portadas/3980.webp');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://animemovil2.com/media/portadas/3980.webp');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+            top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://animemovil2.com/media/portadas/3980.webp');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">eiyuu kyoushitsu - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select id="episode-select" onchange="changerEpisode()">
+                        <option value="none">-- Choose an Episode --</option>
+                        <!-- Les options pour les épisodes seront ajoutées ici via JavaScript -->
+                    </select>
+                    <select id="server-select" onchange="changerServeur()">
+                        <option value="none">-- Choose a Server --</option>
+                        <!-- Les options pour les serveurs seront ajoutées ici via JavaScript -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "eiyuu kyoushitsu"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            var episodes = {
+                //Ajoutez dautres épisodes et serveurs ici
+        "Episode 1": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=63zsgzxnyvs0", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=qCaFh30HTOSzPA", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=xxu55s848", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/stream.php?url=xpa7cptv8jya", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/JqlwDJ7Jd6sr43/1ClassHeroe.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/UzZJaEs0MFRBVnhXVkpuejh2RnE2dz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ahvsh.com/e/4zv3q88s2l4m", server: "StreamHide" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.co/embed-xm7c0588c6mr.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-2p1judh748ow.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/gw1kcv9d0dki", server: "Voex" }
+        ],
+        "Episode 2": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=fpnrataditn3", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=usWzVTx9bJkY3w", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=w3829wxuw", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/stream.php?url=5m3esscinepk", server: "StreamSB" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/LdoAQwW4koHRkW7/2Heroes.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/ZUp2by9jYytuWVZyWkR3bGxwampxQT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://ahvsh.com/e/zqxhbg9t6qy1", server: "StreamHide" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.co/embed-43kr8rya53rj.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-3e0ud7mtbvtu.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/caeo2ooebjq3", server: "Voex" },
+            { url: "https://mega.nz/embed#!52dgEaBT!IAAzqeY_sjCu6vuYYR5XAlBoq663j7DAA4StOYvYmvA", server: "Mega" }
+        ],
+        "Episode 3": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=q7i2bqhzlfsm", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=QYUvp4bZ_rRbnA", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=27mzyshcf", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/bwJQxJq0BGIJpD/3Classroom.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/bzF1RkpGOUJqMWJvRzBKQnhRdWVyQT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.co/embed-rp4dnzki7oqv.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-8iwzzuw72ytd.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamwish.to/e/o681jdnpzlix", server: "StreamWish" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamhub.gg/e/11dbo3ozt198", server: "StreamHub" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/5eyhicxqcxxa", server: "Voex" },
+            { url: "https://mega.nz/embed#!hitEAJCa!f_Bh_KJQM5eBZM4PDH18LQlTyY7IWcbHH-AMsdsJSLI", server: "Mega" }
+        ],
+        "Episode 4": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=-tmcrykp8sL2Hg", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=ga9e87wa7", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/MzAMY8WWJ7Smbeq/4Classroom.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/YnJVTnBnZkhXQUtJSEFoL1Z0UFY3dz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.io/embed-ux9gt1wemtqu.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-dopo8qwrzmiw.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamwish.to/e/6gxqhjuj5rhx", server: "StreamWish" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamhub.gg/e/l4xbq2f7pmgf", server: "StreamHub" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/dbfiw9uauc4h", server: "Voex" }
+        ],
+        "Episode 5": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=ik1lfa2e2ajt", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ya.php?id=UWWNyavLndb6ug", server: "PlusDex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=hdbdjtb4u", server: "PlusFilm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/DaLZjdpv3WULQJ/eiyuu-05.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://hqq.ac/e/OFNDbnZ5dDl2cWdaRytST0ttd0Rpdz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.io/embed-ljljd1yjyddc.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-c489wlu88yih.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embedwish.com/e/osufh1eg1aq1", server: "StreamWish" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamhub.gg/e/pkeakgll4y3v", server: "StreamHub" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/3hl3n8dbrvru", server: "Voex" },
+            { url: "https://mega.nz/embed#!d71UQQAL!0X7-cy-Ed7aUZ-WN51qq-fAN2nN0TcEbt-gihYDs2n0", server: "Mega" }
+        ],
+        "Episode 6": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=pm10n3g4snur", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=g9iccm4ry4yd", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=07kput1ud1jw", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=8cgphqa0ej6z", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/YZD6wP03o2HvJOM/6Heroes.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-3s0ycyhvqlwe.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/yuwvhz2hzwlz", server: "Voex" },
+            { url: "https://mega.nz/embed#!pjMCkCoa!PZOLZ-T78TY5-kODeVegyHZHt5xFXfvLWsjbYLta1jU", server: "Mega" }
+        ],
+        "Episode 7": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=zi1lr6apb0zc", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=zmxmaescd03z", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=8vdq8h6m259b", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=6zsfei19i735", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/Mq9kApGM1qsdo3/7Classroom.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-m2h1sxoxrjis.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/nqcnvqhu0sjf", server: "Voex" }
+        ],
+        "Episode 8": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=z6yzlajgkwcu", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=bbdptajtwe16", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=sa3tzx64a8jn", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=bfl5duma0cvc", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/load.php?id=myomxrk43b2o", server: "PlusDrop" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/MYvGwlPW46tmRQ2/8Classroom.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-hnq1qgdpjsvf.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/saxicykgxayk", server: "Voex" },
+            { url: "https://mega.nz/embed#!Jv12WKrL!6CpXdTMNtxmRSLRDRDBDVsjyu-HanoaynKCQEsxe0is", server: "Mega" }
+        ],
+        "Episode 9": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=h8ujf0ljkuyq", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=c1p4xgbrl4c2", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=jxmfbbdkcc7f", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=ujg84p82m4nv", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/OPvMQJaMPDSZ40K/9heroesclassroom.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-zl8f8s7cc608.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/r26a629koh7k", server: "Voex" }
+        ],
+        "Episode 10": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=6pw1d8abu6su", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=qlfc3tyti6rv", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=1euujgm1e9zp", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=deh2r19u7muk", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/xMe8rGaXXbUk4yy/10Classroom.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-yx9khe5qjkf1.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/3nlsevgskypc", server: "Voex" }
+        ],
+        "Episode 11": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=4mzs143woyvp", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=eqscx7ho0f3s", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/cloud.php?id=62i210qx8twn", server: "PlusVideo" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=4exwss7ib8oi", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-hom70fsp1o3o.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/kyzfvrkoyuqe", server: "Voex" }
+        ],
+        "Episode 12": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=5ie44fc0ctys", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=ywh0lusxkmb6", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/one.php?id=EfQJAL15X2VFs0SEyus1fJQBL-2WyFolKcc-XhkRUjg_4Q", server: "PlusPoint" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/im.php?id=k9ayjegoj7oi", server: "PlusIm" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/share.php?id=23", server: "PlusOne" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/D4m2p8gMb6Uk77G/12classroom.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-w63p6ohj8lff.html", server: "Mp4Upload" },
+            { url: "https://mega.nz/embed#!Y6smhIaA!78DLj5F6ktJvHI6fXm-6tST7TaKfDzvvJ5QKEqkPRWc", server: "Mega" }
+        ],
+            };
+
+            function populateEpisodes() {
+                var episodeSelect = document.getElementById('episode-select');
+                for (var episode in episodes) {
+                    var option = document.createElement('option');
+                    option.value = episode;
+                    option.textContent = episode;
+                    episodeSelect.appendChild(option);
+                }
+            }
+
+            function populateServers(episode) {
+                var serverSelect = document.getElementById('server-select');
+                serverSelect.innerHTML = '<option value="none">-- Choose a Server --</option>'; // Clear existing options
+                if (episodes[episode]) {
+                    episodes[episode].forEach(function (episodeData) {
+                        var option = document.createElement('option');
+                        option.value = episodeData.url;
+                        option.textContent = episodeData.server;
+                        serverSelect.appendChild(option);
+                    });
+                }
+            }
+
+            function changerEpisode() {
+                var episodeSelect = document.getElementById('episode-select');
+                var selectedEpisode = episodeSelect.value;
+                populateServers(selectedEpisode);
+                changerServeur();
+            }
+
+            function changerServeur() {
+                var serverSelect = document.getElementById('server-select');
+                var selectedUrl = serverSelect.value;
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = selectedUrl;
+                localStorage.setItem('eiyuu kyoushitsu_activeEpisode', selectedUrl);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                populateEpisodes();
+                var activeEpisode = localStorage.getItem('eiyuu kyoushitsu_activeEpisode');
+                if (activeEpisode) {
+                    document.getElementById('episode-select').value = Object.keys(episodes).find(function (episode) {
+                        return episodes[episode].some(function (server) {
+                            return server.url === activeEpisode;
+                        });
+                    });
+                    changerEpisode();
+                    document.getElementById('server-select').value = activeEpisode;
+                    changerServeur();
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>el chavo del ocho - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://animemovil2.com/media/portadas/3583.webp');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://animemovil2.com/media/portadas/3583.webp');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+            top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://animemovil2.com/media/portadas/3583.webp');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">el chavo del ocho - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select id="episode-select" onchange="changerEpisode()">
+                        <option value="none">-- Choose an Episode --</option>
+                        <!-- Les options pour les épisodes seront ajoutées ici via JavaScript -->
+                    </select>
+                    <select id="server-select" onchange="changerServeur()">
+                        <option value="none">-- Choose a Server --</option>
+                        <!-- Les options pour les serveurs seront ajoutées ici via JavaScript -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "el chavo del ocho"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            var episodes = {
+                //Ajoutez dautres épisodes et serveurs ici
+        "Episode 1": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/74c1giu1qmev.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/py0jrimygdpnpmz", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/ecq1kp4nt9w7", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/2jykt0nnwgqr", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/vhS3o1v3jGCj", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-zb1atygid3jt.html", server: "OP6" }
+        ],
+        "Episode 2": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/nyw57i2xjl0kmnn", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/i4sd4ht2exbs.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/AiiFXop4amR1", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/d37dwiapqi7o", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-6rk3rl7xedny.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/c5c0bharlbg6", server: "OP6" }
+        ],
+        "Episode 3": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/j-r5wcd5g04klq3", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/0unwdgo789i0.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/9keZlDAxM8OW", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/tifvhx6bmn8r", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/dzrlve9giwgt", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-4not9ry9cu0w.html", server: "OP6" }
+        ],
+        "Episode 4": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/j-r5wcd5g045lx5", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/aidcul2f010q.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/iBLIJ2H8ppuL", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/pvy52sxr5rsq", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-6jjiy0jz1eb8.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/q4fbvccapmzn", server: "OP6" }
+        ],
+        "Episode 5": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/360dqcm8xkq7rlr", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/fzkohf362g4q.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/asj0kgeq7j3i", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-niaiaxflg3rf.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/XweblU3cjEC2", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/28iyp8mjhtmd", server: "OP6" }
+        ],
+        "Episode 6": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/dkp0qfxdrm-g5g1", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/jnotmss0wsa0.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/XEkNVqYQcoBi", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/pr69mw0t0u5t", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/gj3393xdjrak", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-bhnbfo1i1p16.html", server: "OP6" }
+        ],
+        "Episode 7": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/47q0riz762d36np", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/c1umgv189b4y.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/1dkng09eux05", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-nc975v4znh4b.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/ShkKzH4oLqLt", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/7fb86g2gxal6", server: "OP6" }
+        ],
+        "Episode 8": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/13q2nbjz2y4r05n", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/d1wau5nduhii.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/hin7as72k7y8", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/M9KfPf4Vc3bm", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/26mtl4yy8sbl", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-b9zvnhkydxs0.html", server: "OP6" }
+        ],
+        "Episode 9": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/7evs04sm1ns0.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/kyz5ni31gy26ee4", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/qo9sxvu68845", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/r96e622ymmjo", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/J0wpgSu0XS9s", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-12ga557jd148.html", server: "OP6" }
+        ],
+        "Episode 10": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/x4rl0a5p8zjgr2j", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/yk1ord3lke0f.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/XHNMRp0o4Dul", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/osb316iafnw8", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/y9vclj53ilhx", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-avv38jqgbeju.html", server: "OP6" }
+        ],
+        "Episode 11": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/c1dbgs0pnicj.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/60epmb04wmj1gz-", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/c17xmlnse07p", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-qnxj35yw6tmr.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-775yespsx676.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/8fmT0bKIGtLx", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/6qydwfp0g1zp", server: "OP7" }
+        ],
+        "Episode 12": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/rjxrfwavkuqz.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/e2xr0h-4nw3mnnq", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/00avdx943x9y", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/vgDiQgHh5215", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/un2cc498x3hx", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-h4mqr61ikm0v.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-jbqjkfbc5bjl.html", server: "OP7" }
+        ],
+        "Episode 13": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/60epmb04wmjj884", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/wltkjp9fylip.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/tjZscPHfPkX2", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-lfwdyd4vxg9o.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/97shiz5k7pn5", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-j7rr82z7vhyn.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/bmghk9rhgle1", server: "OP7" }
+        ],
+        "Episode 14": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/y2-lmhe1325243y", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/uxgrvhqc5ccs.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/4lwxh7b5mrhr", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-vx7v4bpihx28.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/1fnmmim11j9w", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/navzmjfEkjMB", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-5ats91w1oxvr.html", server: "OP7" }
+        ],
+        "Episode 15": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/l7ledw4j759o.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/05r41alng54djlg", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-3oa8w5ieequw.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/lrfb55oxbnlk", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/e7ebjrqfma4o", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/tK12CVnXvpYJ", server: "OP6" }
+        ],
+        "Episode 16": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/y9u3vlxu5fhs.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/-z1m7ipl14zgw5w", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/nt4aqlf3jeza", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-bvo79o7j4pp6.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/0fma7o43mj0n", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/sZ3Czn6OBnkM", server: "OP6" }
+        ],
+        "Episode 17": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/yhpmb9g44dit.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/05r41alng54qk80", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/m9rmo58mnril", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-ahi2m01ohx92.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-16qaxmb4nq90.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/ay2hq0qkq7s7", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/enhf28cEQtPy", server: "OP7" }
+        ],
+        "Episode 18": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/efglx7ocha47.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/qye5rie3gmzqqd3", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://embed.mystream.to/rv2j8jkg8w1z", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-b80ur74wy0jr.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/zjjPQNvfxIUL", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/lwpycdwtktqi", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-e6yewd8m5lbr.html", server: "OP7" }
+        ],
+        "Episode 19": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/lnw54inwgw-0375", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/t0o5sei7ldbq.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-trifp8e0v2qx.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/juh5wg0stsro", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/ZO4LCfMd75Lh", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-n3ehtona85gu.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-j3i6ag0sbtqv.html", server: "OP7" }
+        ],
+        "Episode 20": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/j-r5wcde8e--y3x", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/vi8r1ic0iy4q.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-o03rtbnriynq.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-3qxkenkjh3to.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/8j6p9gz27413", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/9LUP2BdizLrF", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-jpqrr11jjhgb.html", server: "OP7" }
+        ],
+        "Episode 21": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/8p24wb8l3l4q55x", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/gwh68pvgj7hk.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-qzhcvnaw2bcm.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/a1m9YTXlOoee", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-3nwy4lorp3ar.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/jjcempch4o5t", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-24tln9mex7qv.html", server: "OP7" }
+        ],
+        "Episode 22": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/nz8jkys5oy39.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.fembed.com/f/47q0rizy1yq8x8r", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-11p86kob3ksd.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-3tnjudwtj4o2.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/pry9xikj9zjr", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-pafui7jal60x.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/Y2jIK8pUcBCA", server: "OP7" }
+        ],
+        "Episode 23": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/dkp0qfx5g5zzrxm", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/5w2ck2xy0694.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-ssnfmwokfint.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-zwyv9onmp97c.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/z6azhywvk2ty", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/1XgtDAMYv8wb", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-k9r1jwxqcpc3.html", server: "OP7" }
+        ],
+        "Episode 24": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/ryewdie-5-qj3l7", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/eqrn0nvj3ms5.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-40k588i7k060.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/pOVxWEb2Ctg5", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/9oie58nyhjgf", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-lfggk1dwpk6c.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-b1i3cxadzzzw.html", server: "OP7" }
+        ],
+        "Episode 25": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/l1vr5ts5zp4j.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/gqz-ei-y3y7zd7z", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-rjyjap4glc8r.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-wiio4btnaz7y.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/2xkhlintf1a9", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/LfNnbpFEEv4x", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-csjyqq58c6ga.html", server: "OP7" }
+        ],
+        "Episode 26": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/8p24wb8l3ld26rl", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/nzilfykatd2m.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-jgukexpbttg6.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/gTPrA19S7YJD", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/xsc76v6dtuec", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-5pi7zr9lo3ul.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-k4j8vjt1f2po.html", server: "OP7" }
+        ],
+        "Episode 27": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/5derycdy1y356zz", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/jdtynhclfl2s.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-9bgenxi4ky4j.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/xhde1maow2ue", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/qUOp4jDgSGWb", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-ulfg8i2ptvtk.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-2hc246acd6vh.html", server: "OP7" }
+        ],
+        "Episode 28": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/05r41alqrqrkpp6", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/j2vam7k6znmc.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-sk7u9tjb7zct.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-ggwsb5b2wino.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/JNz2pQT5cY7I", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/0f9w2ff743bx", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-hl3xofr7nrld.html", server: "OP7" }
+        ],
+        "Episode 29": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/ryewdie-5-x7gqy", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/isueevv5dcjb.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-6dyx2z1g6egj.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-6cvte1h7z7hy.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/tywlmsa1drzs", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/XXWxFwaNg5ix", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-u6k1bjpq67to.html", server: "OP7" }
+        ],
+        "Episode 30": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/t36lz7a30fh0.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/5derycdy1y1n-2w", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-k3xlyn25gtiw.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/FqKrjymIfKTK", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-c16xg02wewdm.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-ck8fxeqpmlqm.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/654ahc0golnz", server: "OP7" }
+        ],
+        "Episode 31": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/gqz-ei-y3512xw1", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/t70itqfyjvwd.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-0qmzt63bk9he.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-n8tcekwor197.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/prAmmBUchfnE", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-beqajkorhjjo.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/wz8zh4635ju6", server: "OP7" }
+        ],
+        "Episode 32": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/w32ydbnjky0k3-y", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/3g9fevq4zb2v.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-2qkyf1av23pp.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/qt8ric0jn852", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-1ttjik2giqoe.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/sepAxKPkuG9h", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-4fr3docxi1fg.html", server: "OP7" }
+        ],
+        "Episode 33": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/py0jrim1z63xr0l", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/u5tv4156rkwe.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-zc3s5e38qbwh.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/whyij9yu9kkl", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/qB7y5I8ErkR6", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-aa7o99nfl27x.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-n1zie6ehsshe.html", server: "OP7" }
+        ],
+        "Episode 34": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/7re3ybgq012g0xx", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/affprtmp22yc.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-m7ir2oa47mdm.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-1ml0pj6b9ufb.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/wsyqfgil67da", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/PjJ2sCORXsw6", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-cbnr5czq6rbl.html", server: "OP7" }
+        ],
+        "Episode 35": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/60epmb01y2m4nnd", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/r3hz3u836spl.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-f9vg716s18wb.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/TKuRC8slEJlG", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-6haxactpfh2f.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/uzbhiutcx8eq", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-rx95ygq8f6dv.html", server: "OP7" }
+        ],
+        "Episode 36": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/dkp0qfx5gzy1w-r", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/cmv5ig6zho1l.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-kmxobfeisncl.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/y8a1e9khohpu", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/xokg55swt4e3", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-j9zwj5x4u7at.html", server: "OP6" }
+        ],
+        "Episode 37": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/05r41alqr356kxm", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/htmny8qhg8q9.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-1bqg72algxu4.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/zRiBNW9GsS3M", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/kdglxsipfntm", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-j9yckrbfvre3.html", server: "OP6" }
+        ],
+        "Episode 38": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/z1g6bjj9k6j5.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/nyw57i2m8nkq514", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-dx729ggmwwti.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-kv86he1x1anf.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/an0xk8csn2md", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/KixkOzOkX368", server: "OP6" }
+        ],
+        "Episode 39": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/j-r5wcde8ywkwx8", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/j9q2bl72t2lk.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-vmrpp39sch6j.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/Y5EXNEcz91Vs", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-q9mq0vu90ja2.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/css5gd3jgvra", server: "OP6" }
+        ],
+        "Episode 40": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/abiuw7l8th4d.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/60epmb01y2pw05j", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-yg6c2ci6jvfq.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/IFE7wui7IbJA", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-6c3fk0t26szd.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/ftn2fppi13bv", server: "OP6" }
+        ],
+        "Episode 41": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/kyz5ni347xr7lmk", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/x48y9m4hxw6o.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-klp0vko5pjdu.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/w0f6o87eekpg", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-rx3000q5aw35.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/9chhuL8VVqyf", server: "OP6" }
+        ],
+        "Episode 42": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/9qhmmtk0smq4.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/gqz-ei-y3561zm-", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-iccfqf8q56e6.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-syq0jdycjufz.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/mm4wk5jvmdho", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/tWXKZBmK6Lv1", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-krjd2wr17zbi.html", server: "OP7" }
+        ],
+        "Episode 43": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/5e47nkub8eyx.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/j-r5wcde8yxjrrr", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-2e4xnpnudifj.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/kvcw8m4y65ri", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/f7XDnNHdnJct", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-ta9s3l9znf7v.html", server: "OP6" }
+        ],
+        "Episode 44": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/ln3ss01817y4.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/5derycdy1l7k217", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-bsaslthr7xwe.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-gvwo25qagtt4.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/xnJ6ydj3uKPc", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/m88lows3q5nu", server: "OP6" }
+        ],
+        "Episode 45": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/gqz-ei-y356pd86", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/ppu65dxbb5e3.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-ddoao8fhtez4.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-g7xxg7h017rh.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/nomjy4wtted7", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/qqypeyoQlQT5", server: "OP6" }
+        ],
+        "Episode 46": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/lnw54in754my3ky", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/8f52fovp9hc0.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-uuq1fr5xouao.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-p4l9m008hvq5.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-8akxgp2she3p.html", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/np40ualkkun3", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/ITZ2whmlhl4q", server: "OP7" }
+        ],
+        "Episode 47": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/01djj3yw12bd.html", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/24571a2wd54dl-1", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-vxy0dx27kjwf.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-cpq8ewealfi3.html", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/Q1s6w5CTUHLx", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-f3pc7rmj25j3.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/dbcdnoab2d7c", server: "OP7" }
+        ],
+        "Episode 48": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://fembed.com/v/60epmb0n5j7r1-m", server: "OP1" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://viewsb.com/e/90xby5w2fl6y.html", server: "OP2" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://jawcloud.co/embed-zsx3280vb700.html", server: "OP3" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://dood.to/e/tltirkvuelzr", server: "OP4" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://player.moovies.in/f/HIh1ogXl7qnt", server: "OP5" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.com/embed-654eq1je0ss9.html", server: "OP6" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://upstream.to/embed-qdg9jj4z8y52.html", server: "OP7" }
+        ],
+            };
+
+            function populateEpisodes() {
+                var episodeSelect = document.getElementById('episode-select');
+                for (var episode in episodes) {
+                    var option = document.createElement('option');
+                    option.value = episode;
+                    option.textContent = episode;
+                    episodeSelect.appendChild(option);
+                }
+            }
+
+            function populateServers(episode) {
+                var serverSelect = document.getElementById('server-select');
+                serverSelect.innerHTML = '<option value="none">-- Choose a Server --</option>'; // Clear existing options
+                if (episodes[episode]) {
+                    episodes[episode].forEach(function (episodeData) {
+                        var option = document.createElement('option');
+                        option.value = episodeData.url;
+                        option.textContent = episodeData.server;
+                        serverSelect.appendChild(option);
+                    });
+                }
+            }
+
+            function changerEpisode() {
+                var episodeSelect = document.getElementById('episode-select');
+                var selectedEpisode = episodeSelect.value;
+                populateServers(selectedEpisode);
+                changerServeur();
+            }
+
+            function changerServeur() {
+                var serverSelect = document.getElementById('server-select');
+                var selectedUrl = serverSelect.value;
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = selectedUrl;
+                localStorage.setItem('el chavo del ocho_activeEpisode', selectedUrl);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                populateEpisodes();
+                var activeEpisode = localStorage.getItem('el chavo del ocho_activeEpisode');
+                if (activeEpisode) {
+                    document.getElementById('episode-select').value = Object.keys(episodes).find(function (episode) {
+                        return episodes[episode].some(function (server) {
+                            return server.url === activeEpisode;
+                        });
+                    });
+                    changerEpisode();
+                    document.getElementById('server-select').value = activeEpisode;
+                    changerServeur();
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

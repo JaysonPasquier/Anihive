@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sengoku youko - AniHive</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2e;
+            color: #ffffff;
+        }
+
+        .buttonCatalogue2 img,
+        .buttonCatalogue img {
+            max-height: 50px;
+        }
+
+        .buttonCatalogue2,
+        .buttonCatalogue {
+            background-color: #6a6a9d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 120px;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+            max-height: 65px;
+            align-items: center;
+        }
+
+        header {
+            background-image: url('https://animemovil2.com/media/portadas/4117.webp');
+            background-position: center;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #headerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        footer {
+            background-color: #282846;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url('https://animemovil2.com/media/portadas/4117.webp');
+            background-position: center;
+        }
+
+        #footerCard {
+            background-color: #0000008f;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .video-section {
+            flex: 3;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 40px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .episode-selection {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            background-color: rgb(30 30 46 / 47%);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .episode-selection select {
+            background-color: rgb(46 46 78);
+            color: #ffffff;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .episode-selection select:focus {
+            outline: none;
+        }
+
+        .episodes-container {
+            flex: 1;
+            background-color: #2e2e4e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-left: 20px;
+        }
+
+        .video-player {
+            width: 100%;
+            top: 31px;
+            padding-top: 56.25%;
+            position: relative;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-position: center;
+            background-image: url('https://animemovil2.com/media/portadas/4117.webp');
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #E0E0E0;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .video-section {
+                margin-right: 0;
+            }
+
+            .episodes-container {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-section {
+                padding: 20px;
+            }
+        }
+
+        .advertisement-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .advertisement {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: #00ff00;
+        }
+
+        .plyr__controls {
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plyr__control--overlaid {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plyr__captions {
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2027867910935541"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headerCard">
+            <h1><a href="https://anihive.com/Catalogue/catalogue.html">sengoku youko - AniHive</a></h1>
+            <nav>
+                <a href="https://anihive.com/index.html">Home</a>
+                <a href="https://anihive.com/Catalogue/catalogue.html">Discover</a>
+                <a href="https://anihive.com/info/apropos.html">About</a>
+                <a href="https://anihive.com/info/contact.html">Contact us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <div class="video-section">
+                <div class="episode-selection">
+                    <select id="episode-select" onchange="changerEpisode()">
+                        <option value="none">-- Choose an Episode --</option>
+                        <!-- Les options pour les épisodes seront ajoutées ici via JavaScript -->
+                    </select>
+                    <select id="server-select" onchange="changerServeur()">
+                        <option value="none">-- Choose a Server --</option>
+                        <!-- Les options pour les serveurs seront ajoutées ici via JavaScript -->
+                    </select>
+                </div>
+                <div class="video-player">
+                    <iframe id="lecteur-video" src="" frameborder="0" allowfullscreen style="width: 100%; height: 100%"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteneur de commentaires Disqus en dehors des conteneurs principaux -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Remplacez PAGE_URL par l'URL canonique de la page
+                this.page.identifier = "sengoku youko"; // Remplacez PAGE_IDENTIFIER par un identifiant unique pour la page
+            };
+
+            (function() { // Ne modifiez pas ce code !
+                var d = document, s = d.createElement('script');
+                s.src = 'https://anihive-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+
+            var episodes = {
+                //Ajoutez dautres épisodes et serveurs ici
+        "Episode 1": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=027t2fp3vm4t", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=659ecbe28ed68", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=2li6mmfj7n7y", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=r8ku5i0q0wt1", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/aZlL0llYY9ixXVg/sengo-01.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-d5sxk65ehg5o.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/ifybmdpchswz", server: "Voex" }
+        ],
+        "Episode 2": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=weqil91om3ii", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65a8034b05281", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=rpsc52na2jkb", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=i1qmhxlm72nx", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-ppn1dgqcjba8.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/yzbru2h2t0ul", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/gr6awrG0LGFqyLo/2sengoku.mp4", server: "StreamTape" }
+        ],
+        "Episode 3": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=n7vaoxjpvdgw", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65b186b45e666", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=z1bcbg5kqpep", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=62bx8aicjmht", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/1ze1reWk3jUezB1/3sengoku.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-uiw5p9oqdiwj.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/1z9kstdymdp4", server: "Voex" }
+        ],
+        "Episode 4": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=kff79jsvi5id", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65ba820d96d84", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=f4u3xpg6s2qx", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-k89w2t2fzhei.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/hsqejfxgrvrp", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/4ArLe0j7myfGQJ/Sengoku_04.mp4", server: "StreamTape" }
+        ],
+        "Episode 5": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=ip9cqdncy72x", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65c3b5ba2ac1b", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=ygwsf3y71yni", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=n8y69yc1xcp5", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/ZbgDkvKWGLIqAZw/5sengoku.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-uj96tf5jnxc9.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/3zmavz8olgo9", server: "Voex" }
+        ],
+        "Episode 6": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=uwbb9278zdsi", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65ccee5f1d448", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=7vjjlps7c6u1", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=hjz7b20dnd5f", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/JyrXKzAw90Ujmeg/youko-06.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-4vgdoealmoi6.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/nibcsroi9slf", server: "Voex" }
+        ],
+        "Episode 7": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=edg3snemrr6g", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65d62cd2d46e9", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=rw8s6ejanxxj", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=mi9rf0m62uaf", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-gailmotb1nl7.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/ewbrav9kwkbg", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/rK0X2M7DQxtbbya/youko-07.mp4", server: "StreamTape" }
+        ],
+        "Episode 8": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=puu25oymg8zq", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65df63e39ca73", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=jjt2kuix5w6c", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=uw02xhf7384n", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/bzqlpwBjPZFPpJ0/youko-08.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-s7keasvw06a4.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/isf6qqm9s1qz", server: "Voex" }
+        ],
+        "Episode 9": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=ztesonwovcuq", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65e8a12955539", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=b89z5eb6yhe0", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=xk44k4f4ov19", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-89llitwgcx5p.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/djcgqrgth2vk", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/V0wY30PJlXSKBee/9sengoku.mp4", server: "StreamTape" }
+        ],
+        "Episode 10": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=ds2rcgnpt6ne", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65f1cb0fc82ed", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=eyzqxgt5fiak", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=8hrr0nv7yewk", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/JkJrJp9gOzTjYMw/youko-10.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-e0do32zdjnwn.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/avjj6tkkzjrt", server: "Voex" }
+        ],
+        "Episode 11": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=1kju9bbfaaec", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=65fb051d2cfd0", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=nudzeapn0hxh", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=a6vyktaohdbo", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-89pikb8hvdj9.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/y6fqgjcsm9wu", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/ayvXXW81wqcxjL3/youko-11.mp4", server: "StreamTape" }
+        ],
+        "Episode 12": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=i0gephzhbxpm", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=66043df5222f7", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=sjsipv0z5u51", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=qllvquy51qlo", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-3zouqrzghtrm.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/uriz1h3rfljm", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/m7bDA7ZA4kHb4q3/12sengokus.mp4", server: "StreamTape" }
+        ],
+        "Episode 13": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=0h6sqb5kfj6k", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=660d7a7e52cb1", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/svid.php?id=gc0b2o0bfnv9", server: "PlusVid" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/mp4.php?id=krhsiozxy09z", server: "PlusLoady" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/k9wwZqlgzOCOJ0A/13sengoku.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-zdhoruidqos9.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/rqlrinn7dfpb", server: "Voex" }
+        ],
+        "Episode 14": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=ui7z8rogh4g3", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/ice.php?id=1iMz", server: "PlusIce" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=66857c7d0e314", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/yoa2Q29G6lSwaY/youko14.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=ME1xRnJ1WHFSREUxRDZhNEVvNThudz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.to/embed-hdfxlj47q0f3.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-o3mtsvcbg5m0.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/uh7gvfzulpnr", server: "Voex" }
+        ],
+        "Episode 15": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=71anhop84hkt", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=6697eed9e7e87", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/APrVVvJrAAiXkMl/sengoku15.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=K1crclZ3cFlNVjlTODNkMHVLUHFPUT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.ws/embed-elxoc30h36nz.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-ddd02wkr9wf2.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/axvkddqhca4u", server: "Voex" }
+        ],
+        "Episode 16": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=2th2qn5s4z", server: "FlashVIP" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=w6b4coe4we4f", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=66a12af3103f1", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/jbeXex4MGOSmwK/sengoku16.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=NEVETkxhbjQyNTh4UWZIM1hyZk1xZz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.ws/embed-f38inemprkhy.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-m4llcr50xdcr.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/oomhdpahorjr", server: "Voex" }
+        ],
+        "Episode 17": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=y3tj4y4f9n", server: "FlashVIP" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=7iflu8fmveke", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=66aa5dd27e74e", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=M2l5Z0VaaXlLNFc1ZVAvbGZJNGdEdz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/694pGyDqjPC9GOL/sengoku17.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.ws/embed-u1n72huxrdla.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-9yhx2v8mfhtc.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/mgmytxahixhn", server: "Voex" }
+        ],
+        "Episode 18": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/fil.php?id=ytfypprjp6", server: "FlashVIP" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=tz6p783tbfqc", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=66b39dd2be037", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/do1QWeY1M2UZMK/sengoku18.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=YlRRVEJDYnN3UE1SU3hTRWZWMG5qdz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.ws/embed-j6wojhn2phmd.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-uan6wm35ns49.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/etlzkx3kl0is", server: "Voex" }
+        ],
+        "Episode 19": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=8x63qhlqzd72", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=66bcd4aadd744", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/b78eR79RWacPpgD/sengoku18.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=K2JYRHBRUzFzU3hLTDgrZC91eHRPQT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-rwa0cfqndnf5.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.ws/embed-s6aam9fiswad.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/b4hb0gkyv0sz", server: "Voex" }
+        ],
+        "Episode 20": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=vvjz1o4zs4l6", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://short.animepelix.com/r?c=125", server: "VaKa" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/aG0W2oXZkxI0rm/20sengoku.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=YzRwMDRNdUlaUHowN2g1OWxGenVoZz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-gjf54xkbr7ex.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.ws/embed-sja7lxaezf7v.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/m46dyil1func", server: "Voex" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.yourupload.com/embed/JOkU3XMcX1Q5", server: "YourUpload" }
+        ],
+        "Episode 21": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=6rrz4eapriaq", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/embed.php?id=66cf4b4c38e20", server: "PlusRise" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://short.animepelix.com/r?c=176", server: "VaKa" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/12AjOOLVxoheAgw/sengoku20.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=NElEc3BVUzF4cHhlRTIwYWZRWityZz09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.ws/embed-agr9eledmzbk.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-s9l3t0ulb0yx.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/ayftqvy7lxbs", server: "Voex" }
+        ],
+        "Episode 22": [
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/vt.php?id=xwhvzuiuffpp", server: "PlusTube" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.ironhentai.com/file.php?id=0xvgyr5cei2z", server: "PlusGram" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://streamtape.com/e/MXkMxzVGAqCmRDr/sengoku22.mp4", server: "StreamTape" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://re.animepelix.net/re.php?id=QkdTeGNHeE1Ya3dzREUzcXdzZmFhUT09", server: "Netu" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://uqload.ws/embed-nkauoc144ju6.html", server: "Uqload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://www.mp4upload.com/embed-rac1dw3dbic6.html", server: "Mp4Upload" },
+            { url: "https://re.animepelix.net/redirect.php?id=https://voe.sx/e/ohf8xcknigi3", server: "Voex" }
+        ],
+            };
+
+            function populateEpisodes() {
+                var episodeSelect = document.getElementById('episode-select');
+                for (var episode in episodes) {
+                    var option = document.createElement('option');
+                    option.value = episode;
+                    option.textContent = episode;
+                    episodeSelect.appendChild(option);
+                }
+            }
+
+            function populateServers(episode) {
+                var serverSelect = document.getElementById('server-select');
+                serverSelect.innerHTML = '<option value="none">-- Choose a Server --</option>'; // Clear existing options
+                if (episodes[episode]) {
+                    episodes[episode].forEach(function (episodeData) {
+                        var option = document.createElement('option');
+                        option.value = episodeData.url;
+                        option.textContent = episodeData.server;
+                        serverSelect.appendChild(option);
+                    });
+                }
+            }
+
+            function changerEpisode() {
+                var episodeSelect = document.getElementById('episode-select');
+                var selectedEpisode = episodeSelect.value;
+                populateServers(selectedEpisode);
+                changerServeur();
+            }
+
+            function changerServeur() {
+                var serverSelect = document.getElementById('server-select');
+                var selectedUrl = serverSelect.value;
+                var iframe = document.getElementById('lecteur-video');
+                iframe.src = selectedUrl;
+                localStorage.setItem('sengoku youko_activeEpisode', selectedUrl);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                populateEpisodes();
+                var activeEpisode = localStorage.getItem('sengoku youko_activeEpisode');
+                if (activeEpisode) {
+                    document.getElementById('episode-select').value = Object.keys(episodes).find(function (episode) {
+                        return episodes[episode].some(function (server) {
+                            return server.url === activeEpisode;
+                        });
+                    });
+                    changerEpisode();
+                    document.getElementById('server-select').value = activeEpisode;
+                    changerServeur();
+                }
+            });
+        </script>
+        <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+        <script src="/var/www/vhosts/anihive.com/httpdocs/adsense.js"></script>
+    </main>
+    <footer>
+        <div id="footerCard">
+            <p>© 2024 AniHive all right reserved </p>
+            <div class="footer-links">
+                <a href="https://anihive.com/info/Politiquedeconfidentialité.html">Privacy Policy</a>
+                <a href="https://anihive.com/info/Conditionsdutilisation.html">Terms of use</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
